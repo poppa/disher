@@ -1,5 +1,7 @@
+import './dotenv'
+
 async function main(): Promise<void> {
-  console.log(`Yay`)
+  console.info(`Main`)
 }
 
 // Only run if we're the entry point

@@ -1,31 +1,7 @@
 import { join } from 'path'
-import { Express } from 'express'
-import { Server } from 'http'
 import { Env, EnvNumber } from './decorators'
-import { Undefinable } from './types'
-import { sha256 } from './utils'
-
-interface InternalOptions {
-  serverSecret: Undefinable<string>
-}
 
 export class Options {
-  private options: InternalOptions = {
-    serverSecret: undefined,
-  }
-
-  /**
-   * The Express application. This is set internally and should only be used
-   * as a getter.
-   */
-  public app: Undefinable<Express>
-
-  /**
-   * The HTTP server instance. This is set internally and should only be used
-   * as a getter
-   */
-  public ['http server']: Undefinable<Server>
-
   /**
    * The host name the server should listen on. Default is `localhost`
    * @env DISHER_HOST
@@ -100,19 +76,6 @@ export class Options {
    */
   @Env('DISHER_SERVER_SECRET')
   public get ['server secret'](): string {
-    if (!this.options.serverSecret) {
-      const s = Math.random().toString(36)
-      this.options.serverSecret = sha256(s)
-    }
-
-    return this.options.serverSecret
-  }
-
-  public set ['server secret'](s: string) {
-    if (s && s.length) {
-      this.options.serverSecret = s
-    } else {
-      throw new Error('server secret must be defined and have a length')
-    }
+    throw new Error(`The environment variable DISHER_SERVER_SECRET must be set`)
   }
 }
