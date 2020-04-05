@@ -1,7 +1,35 @@
 import './dotenv'
+import { makeApp } from './app'
+import { startHttpServer } from './http-server'
+import { logger } from './utils/log'
+import { config } from './options'
+import { trap } from './trap'
+import { connectToDatabase } from './db'
+
+const { info, error } = logger()
 
 async function main(): Promise<void> {
-  console.info(`Main`)
+  const db = await connectToDatabase({
+    host: config.db,
+    retries: config['db connect retries'],
+  })
+
+  if (!db) {
+    return error('Failed connecting to database. Exiting.')
+  } else {
+    info('Database connected')
+  }
+
+  const app = makeApp()
+  info('Express App created')
+
+  await startHttpServer(app)
+  info(
+    `HTTP server listening on ${config.host}:${config.port} ` +
+      ` (pid: ${process.pid})`
+  )
+
+  trap()
 }
 
 // Only run if we're the entry point

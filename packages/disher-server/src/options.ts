@@ -78,4 +78,20 @@ export class Options {
   public get ['server secret'](): string {
     throw new Error(`The environment variable DISHER_SERVER_SECRET must be set`)
   }
+
+  /**
+   * Returns true if `process.env.NODE_ENV === 'production'`
+   */
+  public get isProduction(): boolean {
+    return process.env.NODE_ENV === 'production'
+  }
+
+  /**
+   * Returns true if `process.env.NODE_ENV === 'development'`
+   */
+  public get isDevelopment(): boolean {
+    return process.env.NODE_ENV === 'development'
+  }
 }
+
+export const config = new Options()
