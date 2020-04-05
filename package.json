@@ -1,0 +1,42 @@
+{
+  "name": "disher",
+  "scripts": {
+    "bootstrap": "yarn install --pure-lockfile",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "lint": "yarn eslint packages/**/*.ts --quiet",
+    "clean": "lerna run clean",
+    "clean:all": "lerna run clean:all && rimraf node_modules",
+    "start": "cd packages/disher-server && yarn start",
+    "start:dev": "cd packages/disher-server && yarn start:dev"
+  },
+  "private": true,
+  "version": "1.0.0",
+  "repository": "https://github.com/poppa/disher.git",
+  "author": "Pontus Östlund <poppanator@gmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "@types/compression": "^1.7.0",
+    "@types/cookie-parser": "^1.4.2",
+    "@types/express": "^4.17.4",
+    "@types/helmet": "^0.0.45",
+    "@types/jest": "^25.1.5",
+    "@types/mongodb": "^3.5.4",
+    "@types/mongoose": "^5.7.8",
+    "@types/node": "^13.11.0",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.2.6",
+    "prettier": "^2.0.2",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^25.3.0",
+    "typescript": "^3.8.3"
+  }
+}

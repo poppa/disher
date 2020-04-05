@@ -1,0 +1,32 @@
+{
+  "name": "disher-server",
+  "scripts": {
+    "dev": "NODE_ENV=development tsc -w",
+    "build": "NODE_ENV=production tsc",
+    "clean": "rimraf dist",
+    "clean:all": "rimraf dist && rimraf node_modules",
+    "start:dev": "NODE_ENV=development node dist/main.js",
+    "start": "NODE_ENV=production node dist/main.js"
+  },
+  "version": "0.0.1",
+  "main": "dist/main.js",
+  "repository": "https://github.com/poppa/disher.git",
+  "author": "Pontus Östlund <poppanator@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@typegoose/typegoose": "^6.4.0",
+    "chalk": "^4.0.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "deepmerge": "^4.2.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.7",
+    "tslib": "^1.11.1"
+  },
+  "engines": {
+    "node": ">= 12.13.1"
+  }
+}
