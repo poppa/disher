@@ -24,13 +24,17 @@ export function getHttpServer(): Server {
  */
 export async function stopHttpServer(): Promise<void> {
   await new Promise((resolve) => {
-    server?.close((err) => {
-      if (err) {
-        logger().error({ err }, 'Error closing server')
-      }
+    if (server) {
+      server.close((err) => {
+        if (err) {
+          logger().error({ err }, 'Error closing server')
+        }
 
+        resolve()
+      })
+    } else {
       resolve()
-    })
+    }
   })
 }
 
