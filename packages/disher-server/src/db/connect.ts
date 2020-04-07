@@ -54,6 +54,13 @@ async function lowConnect(
   return undefined
 }
 
+/**
+ * Connect to the database
+ * @param options
+ *
+ * @returns Returns the created DB connection on succes and `undefined` on
+ *  failure
+ */
 export async function connectToDatabase(
   options: ConnectOptions
 ): Promise<Undefinable<mongoose.Connection>> {

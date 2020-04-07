@@ -1,20 +1,28 @@
+// Keep this import first
 import './dotenv'
+
+import { cyan } from 'chalk'
 import { makeApp } from './app'
 import { startHttpServer } from './http-server'
 import { logger } from './utils/log'
 import { config } from './options'
-import { trap, shutdown } from './trap'
+import { trap } from './trap'
 import { connectToDatabase } from './db'
+import { shutdown } from './shutdown'
 
 const { info, error } = logger()
 
+/**
+ * Local function verifying what needs to be verified before the server
+ * is started
+ */
 async function verify(): Promise<boolean> {
   try {
     config['server secret']
   } catch {
     error(
       `No server secret is set. Set it via the environment variable ` +
-        `DISHER_SERVER_SECRET`
+        `${cyan('DISHER_SERVER_SECRET')}`
     )
 
     return false
@@ -23,6 +31,9 @@ async function verify(): Promise<boolean> {
   return true
 }
 
+/**
+ * Application entry point
+ */
 async function main(): Promise<void> {
   if (!(await verify())) {
     await shutdown(1)

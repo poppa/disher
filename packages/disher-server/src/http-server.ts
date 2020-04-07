@@ -6,6 +6,11 @@ import { logger } from './utils/log'
 
 let server: Undefinable<Server>
 
+/**
+ * Returns the HTTP server instance
+ *
+ * @throws An error if no server instance is created yet
+ */
 export function getHttpServer(): Server {
   if (!server) {
     throw new Error('Trying to get HTTP server before it has been inistialized')
@@ -14,6 +19,9 @@ export function getHttpServer(): Server {
   return server
 }
 
+/**
+ * Stop the HTTP server
+ */
 export async function stopHttpServer(): Promise<void> {
   await new Promise((resolve) => {
     server?.close((err) => {
@@ -26,6 +34,12 @@ export async function stopHttpServer(): Promise<void> {
   })
 }
 
+/**
+ * Start the HTTP server
+ *
+ * @param app - The Express application serving as request listener
+ * @returns The server instance created
+ */
 export async function startHttpServer(app: Application): Promise<Server> {
   return new Promise<Server>((resolve) => {
     const listener = http.createServer(app).listen(

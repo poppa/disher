@@ -1,12 +1,26 @@
 import mongoose from 'mongoose'
 import { logger } from '../utils/log'
+import { db } from './connection'
 
-export async function disconnectFromDatabase(): Promise<boolean> {
+export enum Disconnect {
+  NotConnected,
+  Success,
+  Failure,
+}
+
+/**
+ * Disconnect from the database
+ */
+export async function disconnectFromDatabase(): Promise<Disconnect> {
   try {
-    await mongoose.disconnect()
-    return true
+    if (db()) {
+      await mongoose.disconnect()
+      return Disconnect.Success
+    }
+
+    return Disconnect.NotConnected
   } catch (e) {
     logger().error({ err: e }, 'Mongo disconnect failed')
-    return false
+    return Disconnect.Failure
   }
 }

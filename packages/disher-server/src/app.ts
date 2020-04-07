@@ -6,6 +6,10 @@ import { Undefinable } from './utils/types'
 
 let app_: Undefinable<express.Application>
 
+/**
+ * Returns the Express application
+ * @throws An error is thrown if no app is created yet
+ */
 export function app(): express.Application {
   if (!app_) {
     throw new Error('Trying to get `app` before it has been instantiated')
@@ -14,6 +18,9 @@ export function app(): express.Application {
   return app_
 }
 
+/**
+ * Bootstraps the Express application
+ */
 export function makeApp(): express.Application {
   // FIXME: Setup session and what not
   app_ = express()
