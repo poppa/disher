@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { yellow, cyan } from 'chalk'
-import { Undefinable } from '../utils/types'
-import { logger } from '../utils/log'
+import { Undefinable } from '../../utils/types'
+import { logger } from '../../utils/log'
 
 // See https://mongoosejs.com/docs/api.html#mongoose_Mongoose-set
 mongoose.set('useFindAndModify', false)

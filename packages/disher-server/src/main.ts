@@ -7,7 +7,7 @@ import { startHttpServer } from './http-server'
 import { logger } from './utils/log'
 import { config } from './options'
 import { trap } from './trap'
-import { connectToDatabase } from './db'
+import { connectToDatabase } from './lib/db'
 import { shutdown } from './shutdown'
 
 const { info, error } = logger()

@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { Env, EnvNumber } from './decorators'
+import { Env, EnvNumber } from './lib/decorators'
 
 export class Options {
   /**

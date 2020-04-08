@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { logger } from '../utils/log'
+import { logger } from '../../utils/log'
 import { db } from './connection'
 
 export enum Disconnect {

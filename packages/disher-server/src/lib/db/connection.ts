@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import { Db } from 'mongodb'
-import { Undefinable } from '../utils/types'
+import { Undefinable } from '../../utils/types'
 
 /**
  * Returns the `mongoose` connection

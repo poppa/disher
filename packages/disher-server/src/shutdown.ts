@@ -1,5 +1,5 @@
 import { stopHttpServer } from './http-server'
-import { disconnectFromDatabase, Disconnect } from './db'
+import { disconnectFromDatabase, Disconnect } from './lib/db'
 import { logger } from './utils/log'
 
 const { info } = logger()
