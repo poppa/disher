@@ -1,8 +1,8 @@
 import http, { Server } from 'http'
 import { Application } from 'express'
-import { config } from './options'
-import { Undefinable } from './utils/types'
-import { logger } from './utils/log'
+import { config } from '../../options'
+import { Undefinable } from '../../utils/types'
+import { logger } from '../../utils/log'
 
 let server: Undefinable<Server>
 

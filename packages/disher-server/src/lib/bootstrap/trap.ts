@@ -1,5 +1,5 @@
-import { logger } from './utils/log'
-import { getDebugLogger } from './utils/log'
+import { logger } from '../../utils/log'
+import { getDebugLogger } from '../../utils/log'
 import { shutdown } from './shutdown'
 
 const { info } = logger()

@@ -1,14 +1,14 @@
 // Keep this import first
-import './dotenv'
+import './lib/bootstrap/dotenv'
 
 import { cyan, magenta, blue } from 'chalk'
-import { makeApp } from './app'
-import { startHttpServer } from './http-server'
+import { makeApp } from './lib/bootstrap/app'
+import { startHttpServer } from './lib/bootstrap/http-server'
 import { logger } from './utils/log'
 import { config } from './options'
-import { trap } from './trap'
+import { trap } from './lib/bootstrap/trap'
 import { connectToDatabase } from './lib/db'
-import { shutdown } from './shutdown'
+import { shutdown } from './lib/bootstrap/shutdown'
 
 const { info, error } = logger()
 

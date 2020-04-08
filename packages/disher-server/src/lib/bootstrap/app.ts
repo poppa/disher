@@ -2,7 +2,7 @@ import express from 'express'
 import compression from 'compression'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
-import { Undefinable } from './utils/types'
+import { Undefinable } from '../../utils/types'
 
 let app_: Undefinable<express.Application>
 
