@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { Env, EnvNumber } from './lib/decorators'
+import { Env } from './lib/decorators'
 
 export class Options {
   /**
@@ -15,7 +15,7 @@ export class Options {
    * The port the server should listen on. Default is `9999`
    * @env DISHER_PORT
    */
-  @Env('DISHER_PORT', EnvNumber)
+  @Env('DISHER_PORT', Env.Int)
   public get port(): number {
     return 9999
   }
@@ -35,7 +35,7 @@ export class Options {
    *
    * @env DISHER_DB_CONNECT_RETRIES
    */
-  @Env('DISHER_DB_CONNECT_RETRIES', EnvNumber)
+  @Env('DISHER_DB_CONNECT_RETRIES', Env.Int)
   public get ['db connect retries'](): number {
     return 20
   }
@@ -62,7 +62,7 @@ export class Options {
    *
    * @env DISHER_SHUTDOWN_GRACETIME
    */
-  @Env('DISHER_SHUTDOWN_GRACETIME', EnvNumber)
+  @Env('DISHER_SHUTDOWN_GRACETIME', Env.Int)
   public get ['shutdown gracetime'](): number {
     return 5000
   }

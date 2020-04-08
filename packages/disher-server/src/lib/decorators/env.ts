@@ -1,18 +1,27 @@
-export const EnvString = Symbol('string')
-export const EnvNumber = Symbol('number')
-export const EnvBoolean = Symbol('boolean')
-export const EnvJson = Symbol('json')
-export const EnvArray = Symbol('array')
+const EnvString = Symbol('string')
+const EnvInt = Symbol('int')
+const EnvFloat = Symbol('float')
+const EnvBoolean = Symbol('boolean')
+const EnvJson = Symbol('json')
+const EnvArray = Symbol('array')
+
 export type EnvType =
   | typeof EnvString
-  | typeof EnvNumber
+  | typeof EnvInt
+  | typeof EnvFloat
   | typeof EnvBoolean
   | typeof EnvJson
   | typeof EnvArray
-export type EnvDefaults = string | number | boolean
 
-function isString(s: unknown): s is string {
-  return typeof s === 'string' && s !== null
+export interface Env {
+  (name: string | string[], type: EnvType): Function
+
+  String: typeof EnvString
+  Int: typeof EnvInt
+  Float: typeof EnvFloat
+  Boolean: typeof EnvBoolean
+  Json: typeof EnvJson
+  Array: typeof EnvArray
 }
 
 /**
@@ -26,8 +35,7 @@ function isString(s: unknown): s is string {
  */
 export function Env(
   name: string | string[],
-  type: EnvType = EnvString,
-  defaultValue?: EnvDefaults | [EnvDefaults]
+  type: EnvType = EnvString
 ): Function {
   return function (
     _target: object,
@@ -51,7 +59,7 @@ export function Env(
             break
           }
 
-          case EnvNumber: {
+          case EnvInt: {
             descriptor.get = (): number => {
               return parseInt(value, 10)
             }
@@ -75,12 +83,6 @@ export function Env(
                 ret = value.split(',').map((s) => s.trim())
               } else {
                 ret = [value]
-              }
-
-              if (defaultValue && isString(defaultValue)) {
-                ret.unshift(defaultValue)
-              } else if (Array.isArray(defaultValue)) {
-                defaultValue.filter(isString).forEach((s) => ret.unshift(s))
               }
 
               return ret
@@ -109,3 +111,10 @@ export function Env(
     }
   }
 }
+
+Env.String = EnvString
+Env.Int = EnvInt
+Env.Float = EnvFloat
+Env.Boolean = EnvBoolean
+Env.Json = EnvJson
+Env.Array = EnvArray
