@@ -1,5 +1,6 @@
 import { join } from 'path'
 import { Env } from './lib/decorators'
+import { Undefinable } from './utils/types'
 
 export class Options {
   /**
@@ -77,6 +78,15 @@ export class Options {
   @Env('DISHER_SERVER_SECRET')
   public get ['server secret'](): string {
     throw new Error(`The environment variable DISHER_SERVER_SECRET must be set`)
+  }
+
+  /**
+   * Returns the debugflags as an array if it is set
+   * @env DEBUG
+   */
+  @Env('DEBUG', Env.Array)
+  public get debugFlags(): Undefinable<string[]> {
+    return undefined
   }
 
   /**

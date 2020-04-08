@@ -1,14 +1,11 @@
 // Keep this import first
 import './lib/bootstrap/dotenv'
 
-import { cyan, magenta, blue } from 'chalk'
-import { makeApp } from './lib/bootstrap/app'
-import { startHttpServer } from './lib/bootstrap/http-server'
+import { cyan, magenta, blue, yellow } from 'chalk'
+import { makeApp, shutdown, startHttpServer, trap } from './lib/bootstrap'
 import { logger } from './utils/log'
 import { config } from './options'
-import { trap } from './lib/bootstrap/trap'
 import { connectToDatabase } from './lib/db'
-import { shutdown } from './lib/bootstrap/shutdown'
 
 const { info, error } = logger()
 
@@ -31,6 +28,15 @@ async function verify(): Promise<boolean> {
   return true
 }
 
+function printDebugFlags(): void {
+  if (config.debugFlags) {
+    info(
+      `🐛 Debug flags: %s`,
+      config.debugFlags.map((d) => yellow(d.trim())).join(', ')
+    )
+  }
+}
+
 /**
  * Application entry point
  */
@@ -38,6 +44,8 @@ async function main(): Promise<void> {
   if (!(await verify())) {
     await shutdown(1)
   }
+
+  printDebugFlags()
 
   const db = await connectToDatabase({
     host: config.db,
