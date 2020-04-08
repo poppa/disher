@@ -1,7 +1,7 @@
 // Keep this import first
 import './dotenv'
 
-import { cyan } from 'chalk'
+import { cyan, magenta, blue } from 'chalk'
 import { makeApp } from './app'
 import { startHttpServer } from './http-server'
 import { logger } from './utils/log'
@@ -47,16 +47,16 @@ async function main(): Promise<void> {
   if (!db) {
     return error('Failed connecting to database. Exiting.')
   } else {
-    info('Database connected')
+    info('🦀 Database connected')
   }
 
   const app = makeApp()
-  info('Express App created')
+  info('🍔 Express App created')
 
   await startHttpServer(app)
   info(
-    `HTTP server listening on ${config.host}:${config.port} ` +
-      ` (pid: ${process.pid})`
+    `🍾 HTTP ready to serve on ${magenta(config.host)}:${blue(config.port)}` +
+      ` (pid: ${cyan(process.pid)})`
   )
 
   trap()
