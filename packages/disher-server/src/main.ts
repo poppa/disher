@@ -2,7 +2,13 @@
 import './lib/bootstrap/dotenv'
 
 import { cyan, magenta, blue, yellow } from 'chalk'
-import { makeApp, shutdown, startHttpServer, trap } from './lib/bootstrap'
+import {
+  makeApp,
+  shutdown,
+  startHttpServer,
+  trap,
+  loadDbModels,
+} from './lib/bootstrap'
 import { logger } from './utils/log'
 import { config } from './options'
 import { connectToDatabase } from './lib/db'
@@ -58,8 +64,10 @@ async function main(): Promise<void> {
     info('🦀 Database connected')
   }
 
+  await loadDbModels(['dist/modules/*/*.model.js'])
+
   const app = makeApp()
-  info('🍔 Express App created')
+  info('🍞 Express App is baked')
 
   await startHttpServer(app)
   info(

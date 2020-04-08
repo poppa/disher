@@ -1,12 +1,12 @@
 import { glob } from './glob'
 import { Undefinable } from './types'
-import { logger } from './log'
+import { Loggable } from './log'
 
 export interface RequireModule {
   [key: string]: NodeModule
 }
 
-export type FormatFunction = (s: string) => string
+export type FormatFunction = (s: string) => void
 
 /**
  * This will `require()` all files matching the pattern in `path`
@@ -14,9 +14,10 @@ export type FormatFunction = (s: string) => string
  */
 export async function globRequire(
   path: string | string[],
-  fmt?: FormatFunction
+  fmt?: FormatFunction,
+  logger?: Loggable
 ): Promise<Undefinable<RequireModule[]>> {
-  const log = logger()
+  const log = logger || console
 
   try {
     if (!Array.isArray(path)) {
@@ -32,7 +33,7 @@ export async function globRequire(
         files.forEach((f) => {
           try {
             if (fmt) {
-              log.info(fmt(f))
+              fmt(f)
             }
 
             // eslint-disable-next-line @typescript-eslint/no-var-requires
