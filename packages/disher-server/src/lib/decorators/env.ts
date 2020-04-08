@@ -67,6 +67,14 @@ export function Env(
             break
           }
 
+          case EnvFloat: {
+            descriptor.get = (): number => {
+              return parseFloat(value)
+            }
+
+            break
+          }
+
           case EnvJson: {
             descriptor.get = (): { [key: string]: unknown } => {
               return JSON.parse(value)
