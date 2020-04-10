@@ -1,7 +1,7 @@
 import { Types } from 'mongoose'
 
-export interface WithId {
-  _id?: Types.ObjectId
+interface WithId {
+  _id?: Types.ObjectId | string
 }
 
 /**
@@ -35,13 +35,13 @@ export function objectId<T extends Types.ObjectId | string>(
  * instance
  * @param obj
  */
-export function assertId<T extends WithId>(obj: T): T {
+export function assertId<T extends unknown>(obj: T): T {
   if (typeof obj === 'object' && obj !== null && !('_id' in obj)) {
-    obj._id = new Types.ObjectId()
+    ;(obj as WithId)._id = new Types.ObjectId()
   }
 
-  if (!isObjectId(obj._id)) {
-    obj._id = objectId(obj._id)
+  if (!isObjectId((obj as WithId)._id)) {
+    ;(obj as WithId)._id = objectId((obj as WithId)._id)
   }
 
   return obj

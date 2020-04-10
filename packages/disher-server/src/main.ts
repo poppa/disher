@@ -1,7 +1,10 @@
-// Keep this import first
+// Keep these import first
+import { install } from 'source-map-support'
+import 'reflect-metadata'
+install()
 import './lib/bootstrap/dotenv'
 
-import { cyan, magenta, blue, yellow } from 'chalk'
+import { cyan, magenta, blue, yellow, dim } from 'chalk'
 import {
   makeApp,
   shutdown,
@@ -12,6 +15,7 @@ import {
 import { logger } from './utils/log'
 import { config } from './options'
 import { connectToDatabase } from './lib/db'
+import { setupGraphQl } from './lib/bootstrap/graphql'
 
 const { info, error } = logger()
 
@@ -66,8 +70,24 @@ async function main(): Promise<void> {
 
   await loadDbModels(['dist/modules/*/*.model.js'])
 
-  const app = makeApp()
+  const app = await makeApp()
   info('🍞 Express App is baked')
+
+  try {
+    const gql = await setupGraphQl(app)
+    info(`🍳 GraphQL is cooking at ${cyan(gql.graphqlPath)}`)
+
+    if (config.isDevelopment) {
+      info(
+        dim(
+          `   ...GraphQL playground also available at ${cyan(gql.graphqlPath)}`
+        )
+      )
+    }
+  } catch (err) {
+    error({ err }, 'GraphQL error')
+    await shutdown(1)
+  }
 
   await startHttpServer(app)
   info(

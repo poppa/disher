@@ -53,7 +53,7 @@ export function Env(
         switch (type) {
           case EnvBoolean: {
             descriptor.get = (): boolean => {
-              return !!value
+              return ['true', '1'].includes(value.toLowerCase())
             }
 
             break

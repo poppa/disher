@@ -34,8 +34,16 @@ export function isScope(scope: string): scope is Scope {
  *
  */
 export function validateScope(
-  scope: string[],
-  requiredScope: Scope[]
+  scope?: string[],
+  requiredScope?: Scope[]
 ): boolean {
+  if (!requiredScope || !requiredScope.length) {
+    return true
+  }
+
+  if (!scope || !scope.length) {
+    return false
+  }
+
   return requiredScope.every((rs) => scope.includes(rs))
 }

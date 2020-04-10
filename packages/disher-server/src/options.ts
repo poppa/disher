@@ -90,6 +90,15 @@ export class Options {
   }
 
   /**
+   * Check is auth is disabled. This only has effect if the server is started
+   * in development mode
+   * @env DISHER_AUTH_DISABLED
+   */
+  public get authDisabled(): boolean {
+    return !!(this.isDevelopment && process.env.DISHER_AUTH_DISABLED)
+  }
+
+  /**
    * Returns true if `process.env.NODE_ENV === 'production'`
    */
   public get isProduction(): boolean {

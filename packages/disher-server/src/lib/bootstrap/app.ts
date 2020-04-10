@@ -1,10 +1,66 @@
-import express from 'express'
+import express, { RequestHandler } from 'express'
 import compression from 'compression'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
-import { Undefinable } from '../../utils/types'
+import connectMongo from 'connect-mongo'
+import session from 'express-session'
+import { Undefinable, PlainObject } from '../../utils/types'
+import { getDebugLogger, logger } from '../../utils/log'
+import { db, connection } from '../db'
+import { shutdown } from './shutdown'
+import { config } from '../../options'
+
+const debug = getDebugLogger('bootstrap').extend('app')
+const { warn } = logger()
 
 let app_: Undefinable<express.Application>
+
+async function setupSession(): Promise<RequestHandler> {
+  let sessionStore: Undefinable<connectMongo.MongoStoreFactory>
+  let mongoStore: Undefinable<connectMongo.MongoStore>
+
+  if (db()) {
+    sessionStore = connectMongo(session)
+
+    const ssOptions: PlainObject = {
+      mongooseConnection: connection(),
+      touchAfter: 24 * 3600,
+    }
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    mongoStore = new sessionStore(ssOptions)
+  } else {
+    warn('No Database available. Unable to seup session store')
+    await shutdown(1)
+  }
+
+  if (!sessionStore) {
+    warn('No session store created')
+    await shutdown(1)
+  }
+
+  const exp = 3600 * 24 * 365 * 10 * 1000
+
+  const sessConf: session.SessionOptions = {
+    secret: config['server secret'],
+    resave: false,
+    saveUninitialized: false,
+    store: mongoStore,
+    cookie: {
+      secure: false,
+    },
+  }
+
+  if (exp && sessConf.cookie) {
+    debug('Session expires:', new Date(exp))
+    sessConf.cookie.maxAge = exp
+  }
+
+  debug(sessConf)
+
+  return session(sessConf)
+}
 
 /**
  * Returns the Express application
@@ -21,7 +77,7 @@ export function app(): express.Application {
 /**
  * Bootstraps the Express application
  */
-export function makeApp(): express.Application {
+export async function makeApp(): Promise<express.Application> {
   // FIXME: Setup session and what not
   app_ = express()
   app_.enable('case sensitive routing')
@@ -32,6 +88,11 @@ export function makeApp(): express.Application {
   app_.use(express.json())
   app_.use(express.urlencoded({ extended: true }))
   app_.use(cookieParser())
+  app_.use(await setupSession())
+
+  if (config.isProduction) {
+    app_.set('trust proxy', 1)
+  }
 
   return app_
 }
