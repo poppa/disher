@@ -11,11 +11,11 @@ import {
   startHttpServer,
   trap,
   loadDbModels,
+  setupGraphQl,
 } from './lib/bootstrap'
 import { logger } from './utils/log'
 import { config } from './options'
 import { connectToDatabase } from './lib/db'
-import { setupGraphQl } from './lib/bootstrap/graphql'
 
 const { info, error } = logger()
 
