@@ -120,14 +120,16 @@ export function isHttpError(err: unknown): err is HttpError {
  *
  * @param err
  */
-export function getStatusCode<T extends Error & { [key: string]: unknown }>(
-  err: T
-): number | undefined {
-  if (err.statusCode && typeof err.statusCode === 'number') {
-    return err.statusCode
-  } else if (err.status && typeof err.status === 'number') {
-    return err.status
-  } else {
-    return undefined
+export function getStatusCode(err: unknown): number | undefined {
+  const e = err as { [key: string]: unknown }
+
+  if (typeof e === 'object' && e !== null) {
+    if ('statusCode' in e && e.statusCode && typeof e.statusCode === 'number') {
+      return e.statusCode
+    } else if (e.status && typeof e.status === 'number') {
+      return e.status
+    }
   }
+
+  return undefined
 }

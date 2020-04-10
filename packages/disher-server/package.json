@@ -6,7 +6,8 @@
     "clean": "rimraf dist",
     "clean:all": "rimraf dist && rimraf node_modules",
     "start:dev": "NODE_ENV=development node dist/main.js",
-    "start": "NODE_ENV=production node dist/main.js"
+    "start": "NODE_ENV=production node dist/main.js",
+    "test": "../../node_modules/.bin/jest"
   },
   "version": "0.0.1",
   "main": "dist/main.js",
