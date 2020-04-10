@@ -16,6 +16,7 @@ import {
 import { logger } from './utils/log'
 import { config } from './options'
 import { connectToDatabase } from './lib/db'
+import { stripCwd } from './utils'
 
 const { info, error } = logger()
 
@@ -68,7 +69,14 @@ async function main(): Promise<void> {
     info('🦀 Database connected')
   }
 
-  await loadDbModels(['dist/modules/*/*.model.js'])
+  info(`🌽 Loading db models...`)
+  const dbmods = await loadDbModels(['dist/modules/*/*.model.js'], (s) =>
+    info(`   ${dim(`...${yellow(stripCwd(s, 6))}`)}`)
+  )
+
+  if (dbmods) {
+    info(`🥦 Loaded ${cyan(dbmods.length + '')} DB models`)
+  }
 
   const app = await makeApp()
   info('🍞 Express App is baked')
