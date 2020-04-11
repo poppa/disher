@@ -1,5 +1,5 @@
 {
-  "name": "disher-server",
+  "name": "@poppanator/disher-server",
   "scripts": {
     "dev": "NODE_ENV=development tsc -w",
     "build": "NODE_ENV=production tsc",

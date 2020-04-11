@@ -1,5 +1,5 @@
 {
-  "name": "disher-admin",
+  "name": "@poppanator/disher-admin",
   "private": true,
   "scripts": {
     "dev": "rimraf dist && parcel ./src/index.html",
