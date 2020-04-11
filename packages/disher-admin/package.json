@@ -10,7 +10,7 @@
   "version": "0.0.1",
   "repository": "https://github.com/poppa/disher.git",
   "author": "Pontus Östlund <poppanator@gmail.com>",
-  "main": "dist/index.js",
+  "main": "index.js",
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.9.9",

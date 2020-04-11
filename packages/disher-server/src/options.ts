@@ -90,6 +90,25 @@ export class Options {
   }
 
   /**
+   * If `true` the Admin UI will not be mounted
+   * @env DISHER_NO_ADMIN_UI
+   */
+  @Env('DISHER_NO_ADMIN_UI', Env.Boolean)
+  public get noAdminUi(): boolean {
+    return false
+  }
+
+  /**
+   * Virtual path where the Admin UI will be mounted. This should contain
+   * both a leading and ending slash. Default is `/admin/`.
+   * @env DISHER_ADMIN_UI_PATH
+   */
+  @Env('DISHER_ADMIN_UI_PATH')
+  public get adminUiPath(): string {
+    return '/admin/'
+  }
+
+  /**
    * Check is auth is disabled. This only has effect if the server is started
    * in development mode
    * @env DISHER_AUTH_DISABLED

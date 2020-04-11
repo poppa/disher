@@ -17,6 +17,7 @@ import { logger } from './utils/log'
 import { config } from './options'
 import { connectToDatabase } from './lib/db'
 import { stripCwd } from './utils'
+import { mountRoutes } from './lib/bootstrap/routes'
 
 const { info, error } = logger()
 
@@ -80,6 +81,8 @@ async function main(): Promise<void> {
 
   const app = await makeApp()
   info('🍞 Express App is baked')
+
+  await mountRoutes(app)
 
   try {
     const gql = await setupGraphQl(app)
