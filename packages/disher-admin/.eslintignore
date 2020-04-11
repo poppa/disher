@@ -1,0 +1,7 @@
+dist
+docker-dist
+*.d.ts
+node_modules
+*.js
+*.scss
+.cache
