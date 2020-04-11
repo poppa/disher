@@ -2,8 +2,8 @@
   "name": "@poppanator/disher-admin",
   "private": true,
   "scripts": {
-    "dev": "rimraf dist && parcel ./src/index.html",
-    "build": "rimraf dist && parcel build ./src/index.html",
+    "dev": "rimraf dist && parcel ./src/index.html --public-url ./",
+    "build": "rimraf dist && parcel build ./src/index.html --public-url ./",
     "clean": "rimraf dist",
     "clean:all": "rimraf dist && rimraf node_modules"
   },

@@ -5,6 +5,7 @@ import deepmerge from 'deepmerge'
 import { ServeStaticOptions } from 'serve-static'
 import { config } from '../../options'
 import { logger, getDebugLogger } from '../../utils/log'
+import { isAdministrator } from '../../modules/user'
 
 const debug = getDebugLogger('bootstrap').extend('routes')
 const { info, warn } = logger()
@@ -36,7 +37,15 @@ async function mountAdminUi(app: Application): Promise<void> {
 
     const mnt = config.adminUiPath
     const handler = getStaticMountpoint(ap)
+
     app.use(mnt, handler)
+    app.get(`${mnt}*`, (req, res, next) => {
+      if (!req.user || !isAdministrator(req.user)) {
+        return res.redirect(mnt)
+      }
+
+      next()
+    })
 
     info(`Admin UI will be simmering at ${cyan(mnt)}`)
   } else {
