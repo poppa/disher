@@ -35,7 +35,7 @@ export function objectId<T extends Types.ObjectId | string>(
  * instance
  * @param obj
  */
-export function assertId<T extends unknown>(obj: T): T {
+export function assertId<T extends unknown>(obj: T): T & WithId {
   if (typeof obj === 'object' && obj !== null && !('_id' in obj)) {
     ;(obj as WithId)._id = new Types.ObjectId()
   }
@@ -44,5 +44,5 @@ export function assertId<T extends unknown>(obj: T): T {
     ;(obj as WithId)._id = objectId((obj as WithId)._id)
   }
 
-  return obj
+  return obj as T & WithId
 }
