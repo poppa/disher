@@ -47,7 +47,7 @@ async function mountAdminUi(app: Application): Promise<void> {
       next()
     })
 
-    info(`Admin UI will be simmering at ${cyan(mnt)}`)
+    info(`🐟 Admin UI will be simmering at ${cyan(mnt)}`)
   } else {
     warn(`Failed resolving Admin UI package`)
   }
