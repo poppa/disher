@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField/TextField'
 import Button from '@material-ui/core/Button/Button'
+import { login } from '../../lib/gql-client'
 
 interface LoginState {
   username?: string
@@ -82,7 +83,9 @@ export default class LoginComponent extends Component<{}, LoginState> {
     )
   }
 
-  private onSubmit(e: React.FormEvent<HTMLFormElement>): boolean {
+  private async onSubmit(
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<boolean> {
     e.stopPropagation()
     e.preventDefault()
 
@@ -90,6 +93,8 @@ export default class LoginComponent extends Component<{}, LoginState> {
 
     if (username && password) {
       console.log(`Do login:`, username, password)
+      await login({ username, password })
+      console.log(`Post login`)
     }
 
     return false

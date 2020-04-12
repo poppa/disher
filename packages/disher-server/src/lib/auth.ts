@@ -24,6 +24,7 @@ const NoUser: UserDocument = {
   name: 'Any User',
   handle: 'anonymous',
   scope: ['admin'],
+  password: 'not a pasword',
 }
 
 export async function authUserByApiKey({

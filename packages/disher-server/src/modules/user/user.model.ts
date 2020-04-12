@@ -5,12 +5,12 @@ import {
 } from '@typegoose/typegoose'
 import { Types, Document } from 'mongoose'
 import { ObjectType, ID, Field } from 'type-graphql'
-import { bcryptSync } from '../../utils'
+import { hashSha512 } from '../../utils'
 
 export type UserDocument = User & Pick<Document, '_id'>
 
 const getIt = (s: string): string => s
-const hashIt = (s: string): string => bcryptSync(s)
+const hashIt = (s: string): string => hashSha512(s)
 
 class FederatedIdentity {
   public name!: string
@@ -35,8 +35,8 @@ export class User {
   public handle!: string
 
   @Field(() => String)
-  @Prop({ get: getIt, set: hashIt })
-  public password?: string
+  @Prop({ get: getIt, set: hashIt, minlength: 8 })
+  public password!: string
 
   // @Field(() => Object)
   @Prop()

@@ -5,6 +5,7 @@ import { Undefinable } from '../../utils/types'
 import { logger } from '../../utils/log'
 import { objectId } from '../../lib/db'
 import { getToken } from '../accesstoken'
+import { AddUserArgs } from './user.args'
 
 const { error } = logger()
 
@@ -79,7 +80,7 @@ export async function getUsers(): Promise<User[]> {
   }
 }
 
-export async function addUser(user: User): Promise<UserDocument> {
+export async function addUser(user: User | AddUserArgs): Promise<UserDocument> {
   try {
     if (!user._id) {
       user._id = objectId()

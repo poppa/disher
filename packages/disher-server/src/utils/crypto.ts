@@ -1,6 +1,5 @@
 import { Types } from 'mongoose'
 import { createHmac } from 'crypto'
-import { hashSync } from 'bcrypt'
 import { config } from '../options'
 import * as jwt from './jwt'
 
@@ -12,8 +11,8 @@ export function sha512(str: string): string {
   return createHmac('sha512', str).digest('hex')
 }
 
-export function bcryptSync(str: string): string {
-  return hashSync(str, config['server secret'])
+export function hashSha512(str: string): string {
+  return createHmac('sha512', config['server secret']).update(str).digest('hex')
 }
 
 export interface GenerateJwtTokenProps {
