@@ -45,7 +45,7 @@ async function setupSession(): Promise<RequestHandler> {
   const sessConf: session.SessionOptions = {
     secret: config['server secret'],
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     store: mongoStore,
     cookie: {
       secure: false,
@@ -78,9 +78,14 @@ export function app(): express.Application {
  * Bootstraps the Express application
  */
 export async function makeApp(): Promise<express.Application> {
-  // FIXME: Setup session and what not
   app_ = express()
+
+  if (config.isProduction) {
+    app_.set('trust proxy', 1)
+  }
+
   app_.enable('case sensitive routing')
+  app_.use(await setupSession())
   app_.use(compression())
   app_.use(helmet({ hidePoweredBy: true }))
   app_.use(express.raw())
@@ -88,11 +93,6 @@ export async function makeApp(): Promise<express.Application> {
   app_.use(express.json())
   app_.use(express.urlencoded({ extended: true }))
   app_.use(cookieParser())
-  app_.use(await setupSession())
-
-  if (config.isProduction) {
-    app_.set('trust proxy', 1)
-  }
 
   return app_
 }

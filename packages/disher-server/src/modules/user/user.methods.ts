@@ -1,11 +1,12 @@
 import { Types } from 'mongoose'
 import Model, { UserDocument, User } from './user.model'
 import { Scope } from '../../lib/scope'
-import { Undefinable } from '../../utils/types'
+import { Undefinable, Maybe } from '../../utils/types'
 import { logger } from '../../utils/log'
 import { objectId } from '../../lib/db'
 import { getToken } from '../accesstoken'
 import { AddUserArgs } from './user.args'
+import { Request } from 'express'
 
 const { error } = logger()
 
@@ -135,4 +136,8 @@ export async function deleteUser(
 export async function hasUsers(): Promise<boolean> {
   const res = await Model.countDocuments()
   return res > 0
+}
+
+export function getUserFromRequest(req: Request): Maybe<UserDocument> {
+  return req.session && req.session.user
 }

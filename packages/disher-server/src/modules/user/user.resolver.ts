@@ -11,7 +11,7 @@ import { User, UserDocument } from './user.model'
 import { Maybe } from '../../utils'
 import { Context } from '../../lib/graphql'
 import { logger } from '../../utils/log'
-import { findUser, addUser } from './user.methods'
+import { findUser, addUser, getUserFromRequest } from './user.methods'
 import { AddUserArgs } from './user.args'
 
 const { error } = logger()
@@ -40,7 +40,10 @@ export class UserResolver {
 
       if (u) {
         ctx.req.session.user = u
+        // await saveSession(ctx.req)
       }
+
+      console.log(`SessionID:`, ctx.req.sessionID)
 
       return u || undefined
     } catch (err) {
@@ -49,6 +52,20 @@ export class UserResolver {
     }
   }
 
+  @Query(() => Boolean)
+  public async isLoggedIn(@Ctx() ctx: Context): Promise<boolean> {
+    const u = getUserFromRequest(ctx.req)
+    console.log(`SessionID:`, ctx.req.sessionID)
+
+    if (u) {
+      console.log(`Got session user:`, u)
+      return true
+    }
+
+    return false
+  }
+
+  @Authorized('admin')
   @Mutation(() => User)
   public async addUser(
     @Args() args: AddUserArgs

@@ -7,12 +7,12 @@ import {
 import { Types, Document } from 'mongoose'
 import { Field, ID, ObjectType } from 'type-graphql'
 import { User } from '../user'
-import { bcryptSync, Undefinable } from '../../utils'
+import { Undefinable, hashSha512 } from '../../utils'
 
 export type AccessTokenDocument = AccessToken & Pick<Document, '_id'>
 
 const getIt = (str: string): string => str
-const hashIt = (str: string): string => bcryptSync(str)
+const hashIt = (str: string): string => hashSha512(str)
 
 @ObjectType()
 @ModelOptions({ schemaOptions: { collection: 'AccessToken' } })

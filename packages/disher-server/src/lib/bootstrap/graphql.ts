@@ -11,7 +11,15 @@ export async function setupGraphQl(app: Application): Promise<ApolloServer> {
     playground: config.isDevelopment,
   })
 
-  apolloServer.applyMiddleware({ app, cors: true })
+  apolloServer.applyMiddleware({
+    app,
+    cors: {
+      credentials: true,
+      origin: (_x, cb): void => {
+        cb(null, true)
+      },
+    },
+  })
 
   return apolloServer
 }

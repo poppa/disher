@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField/TextField'
 import Button from '@material-ui/core/Button/Button'
-import { login } from '../../lib/gql-client'
+import { login, isLoggedIn } from '../../lib/gql/login'
 
 interface LoginState {
   username?: string
@@ -18,6 +18,10 @@ export default class LoginComponent extends Component<{}, LoginState> {
       username: undefined,
       submitEnabled: false,
     }
+  }
+
+  public componentDidMount(): void {
+    isLoggedIn().then((r) => console.log(`Logged in:`, r))
   }
 
   public render(): JSX.Element {

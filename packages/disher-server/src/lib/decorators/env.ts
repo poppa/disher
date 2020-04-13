@@ -24,6 +24,8 @@ export interface Env {
   Array: typeof EnvArray
 }
 
+type AnyObj = { [key: string]: unknown }
+
 /**
  * Method accessor decorator that will return the value of `process.env[name]`
  * if that exists, and will be casted to `type`
@@ -52,34 +54,23 @@ export function Env(
       if (descriptor.get && value !== undefined) {
         switch (type) {
           case EnvBoolean: {
-            descriptor.get = (): boolean => {
-              return ['true', '1'].includes(value.toLowerCase())
-            }
-
+            descriptor.get = (): boolean =>
+              ['true', '1'].includes(value.toLowerCase())
             break
           }
 
           case EnvInt: {
-            descriptor.get = (): number => {
-              return parseInt(value, 10)
-            }
-
+            descriptor.get = (): number => parseInt(value, 10)
             break
           }
 
           case EnvFloat: {
-            descriptor.get = (): number => {
-              return parseFloat(value)
-            }
-
+            descriptor.get = (): number => parseFloat(value)
             break
           }
 
           case EnvJson: {
-            descriptor.get = (): { [key: string]: unknown } => {
-              return JSON.parse(value)
-            }
-
+            descriptor.get = (): AnyObj => JSON.parse(value)
             break
           }
 
@@ -100,9 +91,7 @@ export function Env(
           }
 
           default: {
-            descriptor.get = (): string => {
-              return value
-            }
+            descriptor.get = (): string => value
           }
         }
 

@@ -1,8 +1,5 @@
-import Apollo, { gql } from 'apollo-boost'
-
-const cli = new Apollo({
-  uri: 'http://localhost:9999/graphql',
-})
+import { gql } from 'apollo-boost'
+import { client } from './client'
 
 interface LoginArgs {
   username: string
@@ -17,14 +14,29 @@ const loginQuery = gql`
   }
 `
 
+const isLoggedInQuery = gql`
+  query IsLoggedIn {
+    isLoggedIn
+  }
+`
+
 export async function login(args: LoginArgs): Promise<void> {
   try {
-    const res = await cli.query({
+    const res = await client.query({
       query: loginQuery,
       variables: args,
     })
 
     console.log(`Result:`, res)
+  } catch (e) {
+    console.error('Error:', e)
+  }
+}
+
+export async function isLoggedIn(): Promise<void> {
+  try {
+    const res = await client.query({ query: isLoggedInQuery })
+    console.log(`Is logged in res:`, res)
   } catch (e) {
     console.error('Error:', e)
   }
