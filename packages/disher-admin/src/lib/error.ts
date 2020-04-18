@@ -24,12 +24,41 @@ export class DisherError extends Error {
     return DisherError.isDisherError(e) && e.level === DisherError.Fatal
   }
 
+  public static info(message: string): DisherError {
+    return new DisherError(DisherError.Info, message)
+  }
+
+  public static warn(message: string): DisherError {
+    return new DisherError(DisherError.Warn, message)
+  }
+
+  public static error(message: string): DisherError {
+    return new DisherError(DisherError.Error, message)
+  }
+
+  public static fatal(message: string): DisherError {
+    return new DisherError(DisherError.Fatal, message)
+  }
+
   public readonly level: ErrorType
 
   constructor(level: ErrorType, message: string) {
     super(message)
+    this.name = `Disher${Symbol.keyFor(level) ?? level.toString()}`
     this.level = level
-    this.name = Symbol.keyFor(level) ?? level.toString()
+  }
+
+  public get severity(): string {
+    switch (this.level) {
+      case DisherError.Info:
+        return 'info'
+
+      case DisherError.Warn:
+        return 'warning'
+
+      default:
+        return 'error'
+    }
   }
 }
 

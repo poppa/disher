@@ -1,5 +1,10 @@
 import { gql } from 'apollo-boost'
 import { client } from './client'
+import { Login } from './types/Login'
+import { Maybe } from '../../types'
+import { errorStore } from '../../storage'
+import { DisherError } from '../error'
+import { IsLoggedIn } from './types/IsLoggedIn'
 
 interface LoginArgs {
   username: string
@@ -20,25 +25,30 @@ const isLoggedInQuery = gql`
   }
 `
 
-export async function login(args: LoginArgs): Promise<void> {
+export async function login(args: LoginArgs): Promise<Maybe<string>> {
   try {
-    const res = await client.query({
+    const res = await client.query<Login>({
       query: loginQuery,
       variables: args,
     })
 
-    console.log(`Result:`, res)
-    // return res.data
+    if (res.data.login) {
+      return res.data.login.name
+    }
+
+    throw new Error('Unknown user')
   } catch (e) {
-    console.error('Error:', e)
+    errorStore.push(DisherError.error(e.message))
+    return undefined
   }
 }
 
-export async function isLoggedIn(): Promise<void> {
+export async function isLoggedIn(): Promise<boolean> {
   try {
-    const res = await client.query({ query: isLoggedInQuery })
-    console.log(`Is logged in res:`, res)
+    const res = await client.query<IsLoggedIn>({ query: isLoggedInQuery })
+    return res.data.isLoggedIn
   } catch (e) {
-    console.error('Error:', e)
+    errorStore.push(DisherError.fatal(e.message))
+    return false
   }
 }
