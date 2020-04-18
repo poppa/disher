@@ -28,6 +28,7 @@ export async function login(args: LoginArgs): Promise<void> {
     })
 
     console.log(`Result:`, res)
+    // return res.data
   } catch (e) {
     console.error('Error:', e)
   }

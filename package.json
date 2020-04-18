@@ -3,12 +3,16 @@
   "scripts": {
     "bootstrap": "yarn install --pure-lockfile",
     "build": "lerna run build",
+    "dist": "yarn clean && yarn gql && yarn build",
     "test": "lerna run test",
     "lint": "yarn eslint packages/**/*.ts --quiet",
     "clean": "lerna run clean",
     "clean:all": "lerna run clean:all && rimraf node_modules",
     "start": "cd packages/disher-server && yarn start",
-    "start:dev": "cd packages/disher-server && yarn start:dev"
+    "start:dev": "cd packages/disher-server && yarn start:dev",
+    "gql": "yarn gql:schema:download && yarn gql:generate:admin-ui",
+    "gql:schema:download": "scripts/gql/download-schema.sh",
+    "gql:generate:admin-ui": "scripts/gql/generate-admin-ui.sh"
   },
   "private": true,
   "version": "0.0.1",
@@ -41,6 +45,7 @@
     "@types/source-map-support": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
+    "apollo": "^2.27.0",
     "autoprefixer": "^9.7.6",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",

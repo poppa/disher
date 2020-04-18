@@ -40,14 +40,11 @@ export class UserResolver {
 
       if (u) {
         ctx.req.session.user = u
-        // await saveSession(ctx.req)
       }
-
-      console.log(`SessionID:`, ctx.req.sessionID)
 
       return u || undefined
     } catch (err) {
-      error(err, 'login')
+      error({ err }, 'login')
       return undefined
     }
   }
@@ -55,10 +52,8 @@ export class UserResolver {
   @Query(() => Boolean)
   public async isLoggedIn(@Ctx() ctx: Context): Promise<boolean> {
     const u = getUserFromRequest(ctx.req)
-    console.log(`SessionID:`, ctx.req.sessionID)
 
     if (u) {
-      console.log(`Got session user:`, u)
       return true
     }
 
@@ -75,8 +70,7 @@ export class UserResolver {
       return u || undefined
     } catch (err) {
       error({ err }, 'addUser')
+      return undefined
     }
-
-    return undefined
   }
 }

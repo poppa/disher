@@ -97,8 +97,8 @@ export default class LoginComponent extends Component<{}, LoginState> {
 
     if (username && password) {
       console.log(`Do login:`, username, password)
-      await login({ username, password })
-      console.log(`Post login`)
+      const res = await login({ username, password })
+      console.log(`Post login:`, res)
     }
 
     return false

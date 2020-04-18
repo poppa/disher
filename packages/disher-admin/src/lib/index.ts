@@ -1,1 +1,3 @@
-export * as Client from './gql'
+import * as Client from './gql'
+export { Client }
+export * from './error'
