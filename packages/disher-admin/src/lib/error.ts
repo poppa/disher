@@ -5,39 +5,43 @@ export class DisherError extends Error {
   public static readonly Fatal = Symbol.for('FatalError')
 
   public static isDisherError(e: unknown): e is DisherError {
-    return typeof e === 'object' && e !== null && e instanceof DisherError
+    return typeof e === 'object' && e !== null && e instanceof this
+  }
+
+  public static is(e: unknown, type: ErrorType): boolean {
+    return this.isDisherError(e) && e.level === type
   }
 
   public static isInfoError(e: unknown): boolean {
-    return DisherError.isDisherError(e) && e.level === DisherError.Info
+    return this.is(e, this.Info)
   }
 
   public static isWarnError(e: unknown): boolean {
-    return DisherError.isDisherError(e) && e.level === DisherError.Warn
+    return this.is(e, this.Warn)
   }
 
   public static isErrorError(e: unknown): boolean {
-    return DisherError.isDisherError(e) && e.level === DisherError.Error
+    return this.is(e, this.Error)
   }
 
   public static isFatalError(e: unknown): boolean {
-    return DisherError.isDisherError(e) && e.level === DisherError.Fatal
+    return this.is(e, this.Fatal)
   }
 
   public static info(message: string): DisherError {
-    return new DisherError(DisherError.Info, message)
+    return new this(this.Info, message)
   }
 
   public static warn(message: string): DisherError {
-    return new DisherError(DisherError.Warn, message)
+    return new this(this.Warn, message)
   }
 
   public static error(message: string): DisherError {
-    return new DisherError(DisherError.Error, message)
+    return new this(this.Error, message)
   }
 
   public static fatal(message: string): DisherError {
-    return new DisherError(DisherError.Fatal, message)
+    return new this(this.Fatal, message)
   }
 
   public readonly level: ErrorType
