@@ -1,15 +1,10 @@
 import { gql } from 'apollo-boost'
 import { client } from './client'
-import { Login } from './types/Login'
+import { Login, LoginVariables } from './types/Login'
 import { Maybe } from '../../types'
 import { errorStore } from '../../storage'
 import { DisherError } from '../error'
 import { IsLoggedIn } from './types/IsLoggedIn'
-
-interface LoginArgs {
-  username: string
-  password: string
-}
 
 const loginQuery = gql`
   query Login($username: String!, $password: String!) {
@@ -25,7 +20,7 @@ const isLoggedInQuery = gql`
   }
 `
 
-export async function login(args: LoginArgs): Promise<Maybe<string>> {
+export async function login(args: LoginVariables): Promise<Maybe<string>> {
   try {
     const res = await client.query<Login>({
       query: loginQuery,

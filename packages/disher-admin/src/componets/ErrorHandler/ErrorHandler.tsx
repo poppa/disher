@@ -4,8 +4,9 @@ import SnackBar from '@material-ui/core/Snackbar/Snackbar'
 import Alert, { Color } from '@material-ui/lab/Alert/Alert'
 import Button from '@material-ui/core/Button/Button'
 import { observer } from 'mobx-react'
-import { errorStore } from '../../storage'
+import { errorStore, userStore } from '../../storage'
 import { DisherError } from '../../lib'
+import { UserState } from '../../storage/user-store'
 
 const actionButton = (
   <Button color="primary" size="small">
@@ -20,7 +21,10 @@ interface ErrorSnackbarProps {
 const ErrorSnackbar: FC<ErrorSnackbarProps> = ({ error }): JSX.Element => {
   const [open, setOpen] = React.useState(true)
   const handleClose = (ev?: React.SyntheticEvent, reason?: string): void => {
-    console.log(`Close:`, ev, reason)
+    if (reason === 'clickaway') {
+      return
+    }
+
     setOpen(false)
     errorStore.pop(error)
   }
@@ -48,6 +52,10 @@ const ErrorSnackbar: FC<ErrorSnackbarProps> = ({ error }): JSX.Element => {
 }
 
 const ErrorComponent: FC<{}> = observer(({ children }) => {
+  if (userStore.state === UserState.Undetermined) {
+    return <div>BootScreen here</div>
+  }
+
   if (errorStore.hasFatal) {
     return <div>Fatal error</div>
   }

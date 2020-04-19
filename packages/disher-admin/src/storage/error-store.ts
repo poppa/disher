@@ -2,7 +2,18 @@ import { observable, action, computed } from 'mobx'
 import { Maybe } from '../types'
 import { DisherError } from '../lib'
 
-class ErrorStore {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let store: Maybe<ErrorStore>
+
+export class ErrorStore {
+  public static get(): ErrorStore {
+    return store || (store = new this())
+  }
+
+  private constructor() {
+    // Hidden constructor
+  }
+
   @observable private _errors: DisherError[] = []
   @observable private fatalError?: Maybe<DisherError>
 
@@ -56,5 +67,3 @@ class ErrorStore {
     this.fatalError = undefined
   }
 }
-
-export const errorStore = new ErrorStore()

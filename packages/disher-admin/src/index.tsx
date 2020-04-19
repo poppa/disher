@@ -6,15 +6,24 @@ import ThemeProvider from '@material-ui/styles/ThemeProvider/ThemeProvider'
 import { theme } from './theme'
 import Login from './componets/Login/Login'
 import ErrorHandler from './componets/ErrorHandler/ErrorHandler'
+import App from './componets/App/App'
+import { userStore } from './storage'
+import { observer } from 'mobx-react'
 
-const Main = (): JSX.Element => {
-  return (
-    <ThemeProvider theme={theme}>
-      <ErrorHandler>
-        <Login />
-      </ErrorHandler>
-    </ThemeProvider>
-  )
-}
+userStore
+  .checkUserState()
+  .catch((e) => console.error(`Check of user state failed:`, e))
+
+const Main = observer(
+  (): JSX.Element => {
+    return (
+      <ThemeProvider theme={theme}>
+        <ErrorHandler>
+          {userStore.isLoggedIn ? <App /> : <Login />}
+        </ErrorHandler>
+      </ThemeProvider>
+    )
+  }
+)
 
 ReactDOM.render(<Main />, document.getElementById('app'))

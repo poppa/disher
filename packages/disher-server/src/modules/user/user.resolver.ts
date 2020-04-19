@@ -10,10 +10,11 @@ import {
 import { User, UserDocument } from './user.model'
 import { Maybe } from '../../utils'
 import { Context } from '../../lib/graphql'
-import { logger } from '../../utils/log'
+import { logger, getDebugLogger } from '../../utils/log'
 import { findUser, addUser, getUserFromRequest } from './user.methods'
 import { AddUserArgs } from './user.args'
 
+const debug = getDebugLogger('resolver').extend('user')
 const { error } = logger()
 
 @Resolver()
@@ -51,13 +52,10 @@ export class UserResolver {
 
   @Query(() => Boolean)
   public async isLoggedIn(@Ctx() ctx: Context): Promise<boolean> {
+    debug('isLoggedIn(%o)', ctx.req.session)
     const u = getUserFromRequest(ctx.req)
-
-    if (u) {
-      return true
-    }
-
-    return false
+    debug('User from request:', u)
+    return !!u
   }
 
   @Authorized('admin')

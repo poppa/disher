@@ -1,3 +1,11 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+
+type ErrorType =
+  | typeof DisherError.Info
+  | typeof DisherError.Warn
+  | typeof DisherError.Error
+  | typeof DisherError.Fatal
+
 export class DisherError extends Error {
   public static readonly Info = Symbol.for('InfoError')
   public static readonly Warn = Symbol.for('WarnError')
@@ -65,9 +73,3 @@ export class DisherError extends Error {
     }
   }
 }
-
-type ErrorType =
-  | typeof DisherError.Info
-  | typeof DisherError.Warn
-  | typeof DisherError.Error
-  | typeof DisherError.Fatal

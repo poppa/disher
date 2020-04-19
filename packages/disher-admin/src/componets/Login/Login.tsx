@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TextField from '@material-ui/core/TextField/TextField'
 import Button from '@material-ui/core/Button/Button'
-import { login, isLoggedIn } from '../../lib/gql/login'
+import { userStore } from '../../storage'
 
 interface LoginState {
   username?: string
@@ -18,10 +18,6 @@ export default class LoginComponent extends Component<{}, LoginState> {
       username: undefined,
       submitEnabled: false,
     }
-  }
-
-  public componentDidMount(): void {
-    isLoggedIn().then((r) => console.log(`Logged in:`, r))
   }
 
   public render(): JSX.Element {
@@ -96,8 +92,7 @@ export default class LoginComponent extends Component<{}, LoginState> {
     const { username, password } = this.state
 
     if (username && password) {
-      console.log(`Do login:`, username, password)
-      const res = await login({ username, password })
+      const res = await userStore.login({ username, password })
       console.log(`Post login:`, res)
     }
 

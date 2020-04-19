@@ -45,7 +45,7 @@ async function setupSession(): Promise<RequestHandler> {
   const sessConf: session.SessionOptions = {
     secret: config['server secret'],
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: mongoStore,
     cookie: {
       secure: false,
