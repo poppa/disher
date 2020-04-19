@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/camelcase */
+
 import { gql } from 'apollo-boost'
 import { client } from './client'
-import { Login, LoginVariables } from './types/Login'
+import { Login, LoginVariables, Login_login } from './types/Login'
 import { Maybe } from '../../types'
 import { errorStore } from '../../storage'
 import { DisherError } from '../error'
@@ -10,6 +12,7 @@ const loginQuery = gql`
   query Login($username: String!, $password: String!) {
     login(handle: $username, password: $password) {
       name
+      handle
     }
   }
 `
@@ -20,7 +23,7 @@ const isLoggedInQuery = gql`
   }
 `
 
-export async function login(args: LoginVariables): Promise<Maybe<string>> {
+export async function login(args: LoginVariables): Promise<Maybe<Login_login>> {
   try {
     const res = await client.query<Login>({
       query: loginQuery,
@@ -28,7 +31,7 @@ export async function login(args: LoginVariables): Promise<Maybe<string>> {
     })
 
     if (res.data.login) {
-      return res.data.login.name
+      return res.data.login
     }
 
     throw new Error('Unknown user')

@@ -10,6 +10,7 @@
 export interface Login_login {
   __typename: "User";
   name: string;
+  handle: string;
 }
 
 export interface Login {

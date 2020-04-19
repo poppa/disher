@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { observable, computed, action } from 'mobx'
 import { Maybe } from '../types'
-import { LoginVariables } from '../lib/gql/types/Login'
+import { LoginVariables, Login_login } from '../lib/gql/types/Login'
 import { login, isLoggedIn } from '../lib/gql'
+
+export type User = Login_login
 
 export enum UserState {
   Undetermined,
@@ -9,7 +12,6 @@ export enum UserState {
   NotLoggedIn,
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 let store: Maybe<UserStore>
 
 export class UserStore {
@@ -18,7 +20,7 @@ export class UserStore {
   }
 
   @observable private _state: UserState = UserState.Undetermined
-  // @observable private _name: string
+  @observable private _user: Maybe<User>
 
   private constructor() {
     // Hidden constructor
@@ -32,19 +34,21 @@ export class UserStore {
     return this._state === UserState.LoggedIn
   }
 
+  @computed public get user(): Maybe<User> {
+    return this._user
+  }
+
   @action public async checkUserState(): Promise<boolean> {
-    console.log(`State1:`, this._state)
     const res = await isLoggedIn()
-    console.log(`res:`, res)
     this._state = res ? UserState.LoggedIn : UserState.NotLoggedIn
-    console.log(`State2:`, this._state)
     return this._state === UserState.LoggedIn
   }
 
   public async login(vars: LoginVariables): Promise<void> {
-    //
     const res = await login(vars)
+
     if (res) {
+      this._user
       this._state = UserState.LoggedIn
     } else {
       this._state = UserState.NotLoggedIn
