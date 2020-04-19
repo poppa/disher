@@ -34,7 +34,6 @@ export class User {
   @Prop({ required: true, unique: true })
   public handle!: string
 
-  @Field(() => String)
   @Prop({ get: getIt, set: hashIt, minlength: 8 })
   public password!: string
 
