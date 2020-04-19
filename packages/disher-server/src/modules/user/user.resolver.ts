@@ -51,6 +51,23 @@ export class UserResolver {
   }
 
   @Query(() => Boolean)
+  public async logout(@Ctx() ctx: Context): Promise<boolean> {
+    if (getUserFromRequest(ctx.req)) {
+      return await new Promise<boolean>((resolve) => {
+        ctx.req.session?.destroy((e) => {
+          if (e) {
+            error({ err: e }, 'session.destroy')
+          }
+
+          resolve(e ? false : true)
+        })
+      })
+    }
+
+    return true
+  }
+
+  @Query(() => Boolean)
   public async isLoggedIn(@Ctx() ctx: Context): Promise<boolean> {
     debug('isLoggedIn(%o)', ctx.req.session)
     const u = getUserFromRequest(ctx.req)

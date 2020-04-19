@@ -16,7 +16,7 @@ import {
 import { logger } from './utils/log'
 import { config } from './options'
 import { connectToDatabase } from './lib/db'
-import { stripCwd } from './utils'
+import { stripCwd, loadPackageJson } from './utils'
 import { mountRoutes } from './lib/bootstrap/routes'
 
 const { info, error } = logger()
@@ -58,6 +58,8 @@ async function main(): Promise<void> {
   }
 
   printDebugFlags()
+
+  await loadPackageJson()
 
   const db = await connectToDatabase({
     host: config.db,

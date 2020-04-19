@@ -21,6 +21,9 @@ const Main = observer(
         <ErrorHandler>
           {userStore.isLoggedIn ? <App /> : <Login />}
         </ErrorHandler>
+        <footer>
+          Disher Admin UI {process.env.npm_package_version ?? '0.0.0'}
+        </footer>
       </ThemeProvider>
     )
   }

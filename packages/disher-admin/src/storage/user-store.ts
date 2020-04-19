@@ -2,7 +2,7 @@
 import { observable, computed, action } from 'mobx'
 import { Maybe } from '../types'
 import { LoginVariables, Login_login } from '../lib/gql/types/Login'
-import { login, isLoggedIn } from '../lib/gql'
+import { login, isLoggedIn, logout } from '../lib/gql'
 
 export type User = Login_login
 
@@ -53,5 +53,11 @@ export class UserStore {
     } else {
       this._state = UserState.NotLoggedIn
     }
+  }
+
+  public async logout(): Promise<void> {
+    await logout()
+    this._state = UserState.NotLoggedIn
+    this._user = undefined
   }
 }

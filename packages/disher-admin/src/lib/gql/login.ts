@@ -7,6 +7,7 @@ import { Maybe } from '../../types'
 import { errorStore } from '../../storage'
 import { DisherError } from '../error'
 import { IsLoggedIn } from './types/IsLoggedIn'
+import { Logout } from './types/Logout'
 
 const loginQuery = gql`
   query Login($username: String!, $password: String!) {
@@ -20,6 +21,12 @@ const loginQuery = gql`
 const isLoggedInQuery = gql`
   query IsLoggedIn {
     isLoggedIn
+  }
+`
+
+const logoutQuery = gql`
+  query Logout {
+    logout
   }
 `
 
@@ -47,6 +54,16 @@ export async function isLoggedIn(): Promise<boolean> {
     return res.data.isLoggedIn
   } catch (e) {
     errorStore.push(DisherError.fatal(e.message))
+    return false
+  }
+}
+
+export async function logout(): Promise<boolean> {
+  try {
+    const res = await client.query<Logout>({ query: logoutQuery })
+    return res.data.logout
+  } catch (e) {
+    console.error('Logout error:', e)
     return false
   }
 }
