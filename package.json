@@ -8,6 +8,7 @@
   "license": "MIT",
   "devDependencies": {},
   "workspaces": [
-    "strapi"
+    "strapi",
+    "frontend"
   ]
 }
