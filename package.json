@@ -1,6 +1,13 @@
 {
   "name": "@poppanator/disher",
-  "scripts": {},
+  "scripts": {
+    "init": "yarn install --pure-lockfile",
+    "dev:backend": "cd strapi && yarn develop",
+    "dev:frontend": "cd frontend && yarn dev",
+    "build": "yarn build:backend && yarn build:frontend",
+    "build:backend": "cd strapi && yarn build",
+    "build:frontend": "cd frontend && yarn build"
+  },
   "private": true,
   "version": "0.0.1",
   "repository": "https://github.com/poppa/disher.git",

@@ -4,8 +4,6 @@ export interface env {
   (name: string): Maybe<string>
 }
 
-console.log(typeof window !== 'undefined' ? import.meta.env : process.env)
-
 export function env(name: string): Maybe<string> {
   if (typeof window !== 'undefined') {
     if (!name.startsWith('VITE_')) {
