@@ -1,17 +1,23 @@
 import type { Maybe } from 'src/types'
 
-export interface env {
-  (name: string): Maybe<string>
-}
+export function env(name: string): Maybe<string>
+export function env(name: string, defaultValue: string): string
 
-export function env(name: string): Maybe<string> {
-  if (typeof window !== 'undefined') {
-    if (!name.startsWith('VITE_')) {
-      name = `VITE_${name}`
-    }
-
-    return import.meta.env[name] as Maybe<string>
-  } else {
-    return process.env[name]
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function env(name: string, defaultValue?: string) {
+  // if (typeof window !== 'undefined') {
+  if (!name.startsWith('VITE_')) {
+    name = `VITE_${name}`
   }
+
+  const v = import.meta.env[name]
+
+  if (typeof v === 'undefined' && typeof defaultValue !== 'undefined') {
+    return defaultValue
+  }
+
+  return v ? v.toString() : undefined
+  // } else {
+  //   return process.env[name] ?? defaultValue
+  // }
 }

@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-  <title>{env('SITE_NAME')}</title>
+  <title>{env('SITE_NAME', 'Disher')}</title>
 </svelte:head>
 
 <main>
