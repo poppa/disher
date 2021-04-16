@@ -1,0 +1,36 @@
+@use 'variables' as *;
+@use 'functions' as *;
+
+@mixin make-margin($exp: 1, $prefix: m, $property: margin) {
+  $suffix: '';
+
+  @if $exp != 1 {
+    $suffix: '-x#{str-replace(#{$exp}, ".", "")}';
+  }
+
+  .#{$prefix}x#{$suffix} {
+    #{$property}-left: $padding * $exp;
+    #{$property}-right: $padding * $exp;
+  }
+
+  .#{$prefix}y#{$suffix} {
+    #{$property}-top: $padding * $exp;
+    #{$property}-bottom: $padding * $exp;
+  }
+
+  .#{$prefix}t#{$suffix} {
+    #{$property}-top: $padding * $exp;
+  }
+
+  .#{$prefix}b#{$suffix} {
+    #{$property}-bottom: $padding * $exp;
+  }
+
+  .#{$prefix}l#{$suffix} {
+    #{$property}-left: $padding * $exp;
+  }
+
+  .#{$prefix}r#{$suffix} {
+    #{$property}-right: $padding * $exp;
+  }
+}

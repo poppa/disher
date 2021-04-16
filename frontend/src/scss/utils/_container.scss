@@ -1,0 +1,8 @@
+@use '../abtracts/variables' as *;
+
+.container {
+  margin: 0 auto;
+  max-width: $max-width;
+  padding-left: $padding;
+  padding-right: $padding;
+}

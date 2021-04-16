@@ -7,7 +7,9 @@
 </svelte:head>
 
 <main>
-  <h1>Hello world!</h1>
+  <div class="container">
+    <h1>Hello world!</h1>
+  </div>
 </main>
 
 <style>
