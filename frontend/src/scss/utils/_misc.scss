@@ -1,0 +1,26 @@
+.no-decoration {
+  text-decoration: none;
+}
+
+.no-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.h-list {
+  @extend .no-list;
+  display: flex;
+  flex-direction: row;
+
+  li {
+    margin-right: calc(var(--inline-spacing) * 2);
+  }
+
+  &--right {
+    li {
+      margin-right: 0;
+      margin-left: calc(var(--inline-spacing) * 2);
+    }
+  }
+}

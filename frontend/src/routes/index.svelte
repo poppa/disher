@@ -6,11 +6,10 @@
   <title>{env('SITE_NAME', 'Disher')}</title>
 </svelte:head>
 
-<main>
-  <div class="container">
-    <h1>Hello world!</h1>
-  </div>
-</main>
+<div class="container">
+  <h1>Welcome to Disher</h1>
+  <p><a href="/typography">Typography</a> test page</p>
+</div>
 
 <style>
 </style>

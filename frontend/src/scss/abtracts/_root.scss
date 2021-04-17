@@ -5,6 +5,25 @@
   font-weight: 300;
   line-height: 1.5;
 
+  --fs-100: 0.6rem;
+  --fs-200: 0.7rem;
+  --fs-300: 0.8rem;
+  --fs-400: 0.9rem;
+  --fs-500: 1rem;
+  --fs-600: 1.1rem;
+  --fs-700: 1.2rem;
+  --fs-800: 1.3rem;
+  --fs-900: 1.4rem;
+
+  --fs-small: var(--fs-300);
+  --fs-normal: var(--fs-500);
+  --fs-large: var(--fs-700);
+
+  --fs-h1: 1.8em;
+  --fs-h2: 1.6em;
+  --fs-h3: 1.4em;
+  --fs-h4: 1.2em;
+
   // Primary colors
   --clr-primary-hs: 290 43%;
   --clr-primary: hsl(var(--clr-primary-hs) 63%);
@@ -12,6 +31,10 @@
   // Secondary colors
   --clr-secondary-hs: 0 100%;
   --clr-secondary: hsl(var(--clr-secondary-hs) 76%);
+
+  // Tertiary color
+  --clr-tertiary-hs: 0 3%;
+  --clr-tertiary: hsl(var(--clr-tertiary-hs) 20%);
 
   --padding: #{$padding};
   --inline-spacing: #{$inline-spacing};

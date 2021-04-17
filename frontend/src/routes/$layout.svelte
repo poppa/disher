@@ -1,7 +1,11 @@
 <script>
   import '../app.scss'
+  import Footer from '../components/layout/Footer.svelte'
   import Header from '../components/layout/Header.svelte'
 </script>
 
 <Header />
-<slot />
+<main>
+  <slot />
+</main>
+<Footer />
