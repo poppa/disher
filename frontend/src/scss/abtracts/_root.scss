@@ -1,8 +1,10 @@
 @use 'variables' as *;
+@use 'breakpoints' as bp;
 
 :root {
   font-family: $font-family;
   font-weight: 300;
+  font-size: 1.2em;
   line-height: 1.5;
 
   --fs-100: 0.6rem;
@@ -15,6 +17,7 @@
   --fs-800: 1.3rem;
   --fs-900: 1.4rem;
 
+  --fs-smaller: var(--fs-200);
   --fs-small: var(--fs-300);
   --fs-normal: var(--fs-500);
   --fs-large: var(--fs-700);
@@ -28,6 +31,12 @@
   --clr-primary-hs: 290 43%;
   --clr-primary: hsl(var(--clr-primary-hs) 63%);
 
+  --primary-gradient: linear-gradient(
+    305deg,
+    var(--clr-secondary) 0%,
+    var(--clr-primary) 100%
+  );
+
   // Secondary colors
   --clr-secondary-hs: 0 100%;
   --clr-secondary: hsl(var(--clr-secondary-hs) 76%);
@@ -36,8 +45,29 @@
   --clr-tertiary-hs: 0 3%;
   --clr-tertiary: hsl(var(--clr-tertiary-hs) 20%);
 
-  --padding: #{$padding};
+  // Grays
+
+  --clr-gray-100: hsl(0, 0%, 10%);
+  --clr-gray-200: hsl(0, 0%, 20%);
+  --clr-gray-300: hsl(0, 0%, 30%);
+  --clr-gray-400: hsl(0, 0%, 40%);
+  --clr-gray-500: hsl(0, 0%, 50%);
+  --clr-gray-600: hsl(0, 0%, 60%);
+  --clr-gray-700: hsl(0, 0%, 70%);
+  --clr-gray-800: hsl(0, 0%, 80%);
+  --clr-gray-900: hsl(0, 0%, 90%);
+
+  --clr-gray-light: var(--clr-gray-800);
+  --clr-gray: var(--clr-gray-600);
+  --clr-gray-dark: var(--clr-gray-300);
+
+  --padding: 1rem;
+  --container-padding: calc(var(--padding) - 0.2em) var(--padding);
   --inline-spacing: #{$inline-spacing};
+
+  @include bp.medium {
+    --padding: 1.3rem;
+  }
 
   *,
   *::after,

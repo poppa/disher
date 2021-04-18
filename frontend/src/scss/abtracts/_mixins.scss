@@ -9,28 +9,28 @@
   }
 
   .#{$prefix}x#{$suffix} {
-    #{$property}-left: $padding * $exp;
-    #{$property}-right: $padding * $exp;
+    #{$property}-left: calc(var(--padding) * #{$exp});
+    #{$property}-right: calc(var(--padding) * #{$exp});
   }
 
   .#{$prefix}y#{$suffix} {
-    #{$property}-top: $padding * $exp;
-    #{$property}-bottom: $padding * $exp;
+    #{$property}-top: calc(var(--padding) * #{$exp});
+    #{$property}-bottom: calc(var(--padding) * #{$exp});
   }
 
   .#{$prefix}t#{$suffix} {
-    #{$property}-top: $padding * $exp;
+    #{$property}-top: calc(var(--padding) * #{$exp});
   }
 
   .#{$prefix}b#{$suffix} {
-    #{$property}-bottom: $padding * $exp;
+    #{$property}-bottom: calc(var(--padding) * #{$exp});
   }
 
   .#{$prefix}l#{$suffix} {
-    #{$property}-left: $padding * $exp;
+    #{$property}-left: calc(var(--padding) * #{$exp});
   }
 
   .#{$prefix}r#{$suffix} {
-    #{$property}-right: $padding * $exp;
+    #{$property}-right: calc(var(--padding) * #{$exp});
   }
 }

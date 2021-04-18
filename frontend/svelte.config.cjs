@@ -6,7 +6,9 @@ const pkg = require('./package.json')
 module.exports = {
   // Consult https://github.com/sveltejs/svelte-preprocess
   // for more information about preprocessors
-  preprocess: sveltePreprocess(),
+  preprocess: sveltePreprocess({
+    replace: [['process.env.DISHER_VERSION', JSON.stringify(pkg.version)]],
+  }),
 
   kit: {
     // By default, `npm run build` will create a standard Node app.

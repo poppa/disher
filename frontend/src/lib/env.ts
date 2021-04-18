@@ -5,7 +5,6 @@ export function env(name: string, defaultValue: string): string
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function env(name: string, defaultValue?: string) {
-  // if (typeof window !== 'undefined') {
   if (!name.startsWith('VITE_')) {
     name = `VITE_${name}`
   }
@@ -17,7 +16,4 @@ export function env(name: string, defaultValue?: string) {
   }
 
   return v ? v.toString() : undefined
-  // } else {
-  //   return process.env[name] ?? defaultValue
-  // }
 }

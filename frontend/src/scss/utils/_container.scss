@@ -3,6 +3,6 @@
 .container {
   margin: 0 auto;
   max-width: $max-width;
-  padding-left: $padding;
-  padding-right: $padding;
+  padding-left: var(--padding);
+  padding-right: var(--padding);
 }

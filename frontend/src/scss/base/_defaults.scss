@@ -1,3 +1,5 @@
+@use '../abtracts/breakpoints' as bp;
+
 html,
 body {
   margin: 0;
@@ -14,6 +16,28 @@ main {
   flex-grow: 1;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  line-height: 1.1;
+}
+
+p,
+ul {
+  margin: calc(var(--padding) / 2) 0;
+}
+
+hr {
+  border: 0;
+  background: var(--clr-gray-light);
+  height: 1px;
+  margin: var(--padding) 0;
+}
+
 h1 {
   font-size: var(--fs-h1);
 }
@@ -28,4 +52,38 @@ h3 {
 
 h4 {
   font-size: var(--fs-h4);
+}
+
+blockquote {
+  margin: 0;
+  margin-bottom: var(--padding);
+  padding: var(--padding);
+  padding-bottom: 0;
+  color: var(--clr-gray-dark);
+
+  @include bp.medium {
+    padding-left: calc(var(--padding) * 2);
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 180px;
+    background: var(--primary-gradient);
+  }
+
+  footer {
+    font-size: var(--fs-small);
+    color: var(--clr-gray);
+    font-style: italic;
+
+    > &:first-child {
+      margin-top: 0;
+    }
+
+    > &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }

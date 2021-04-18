@@ -6,11 +6,11 @@
   <title>{env('SITE_NAME', 'Disher')}</title>
 </svelte:head>
 
-<div class="container">
-  <h1>Hello world!</h1>
-  <h2>Hello world!</h2>
-  <h3>Hello world!</h3>
-  <h4>Hello world!</h4>
+<div class="container py">
+  <h1>Hello h1 world!</h1>
+  <h2>Hello h2 world!</h2>
+  <h3>Hello h3 world!</h3>
+  <h4>Hello h4 world!</h4>
   <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed est ac
     velit imperdiet elementum ac quis magna. Aenean justo mauris, finibus nec
@@ -37,6 +37,49 @@
     Aliquam consectetur sodales mauris. Cras felis urna, finibus sed arcu at,
     congue gravida velit. Praesent sagittis nunc eget posuere consequat.
   </p>
+
+  <h1>Hello h1 world!<br />with linebreak</h1>
+  <h2>Hello h2 world!<br />with linebreak</h2>
+  <h3>Hello h3 world!<br />with linebreak</h3>
+  <h4>Hello h4 world!<br />with linebreak</h4>
+
+  <hr />
+
+  <div class="flow">
+    <h1>Lorem ipsum dolor sit amet</h1>
+
+    <p>
+      Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+      ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p>
+
+    <h2>Ut enim ad minim veniam</h2>
+    <p>
+      Eget aliquet nibh praesent tristique. Facilisis leo vel fringilla est
+      ullamcorper eget nulla facilisi etiam. Magna sit amet purus gravida quis.
+      Urna id volutpat lacus laoreet non. Iaculis nunc sed augue lacus viverra
+      vitae congue eu. Venenatis urna cursus eget nunc. Tempus quam pellentesque
+      nec nam.
+    </p>
+
+    <blockquote>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <footer>Some Dude</footer>
+    </blockquote>
+
+    <p>
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+      deserunt mollit anim id est laborum. Varius quam quisque id diam vel quam.
+      Ipsum suspendisse ultrices gravida dictum fusce ut placerat orci. Arcu non
+      odio euismod lacinia. Bibendum est ultricies integer quis auctor elit sed
+      vulputate mi. Nullam non nisi est sit amet. Morbi leo urna molestie at
+      elementum eu. Sodales ut etiam sit amet nisl purus in mollis.
+    </p>
+  </div>
 </div>
 
 <style>

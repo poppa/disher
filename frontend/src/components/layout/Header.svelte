@@ -3,7 +3,7 @@
 </script>
 
 <header>
-  <div class="container py-x05">
+  <div class="container">
     <h1>
       <a href="/">
         <BrandLogo payoff="You are served" />
@@ -20,17 +20,14 @@
 
 <style lang="scss">
   header {
-    background: linear-gradient(
-      305deg,
-      var(--clr-secondary) 0%,
-      var(--clr-primary) 100%
-    );
+    background: var(--primary-gradient);
     color: white;
 
     > .container {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: var(--container-padding);
     }
   }
 
@@ -41,6 +38,7 @@
 
   h1 {
     margin: 0;
+    font-size: 1.6rem;
 
     a {
       display: flex;
@@ -62,6 +60,11 @@
       font-size: var(--fs-200);
       // color: hsl(var(--clr-secondary-hs) 85%);
       opacity: 0.6;
+      letter-spacing: 0.035rem;
     }
+  }
+
+  .actions {
+    font-size: var(--fs-400);
   }
 </style>
