@@ -33,10 +33,14 @@
   --clr-primary: hsl(var(--clr-primary-hs) 63%);
 
   --clr-link: var(--clr-primary-400);
+
+  --primary-gradient-offset-left: 0%;
+  --primary-gradient-offset-right: 100%;
+  --primary-gradient-rotation: 300deg;
   --primary-gradient: linear-gradient(
-    305deg,
-    var(--clr-secondary) 0%,
-    var(--clr-primary) 100%
+    var(--primary-gradient-rotation),
+    var(--clr-secondary) var(--primary-gradient-offset-left),
+    var(--clr-primary) var(--primary-gradient-offset-right)
   );
 
   // Secondary colors
@@ -63,9 +67,11 @@
   --clr-gray: var(--clr-gray-600);
   --clr-gray-dark: var(--clr-gray-300);
 
+  // Misc properties
   --padding: 1rem;
   --container-padding: calc(var(--padding) - 0.2em) var(--padding);
   --inline-spacing: #{$inline-spacing};
+  --border-radius: 0.3em;
 
   @include bp.medium {
     font-size: 1.2em;

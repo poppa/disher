@@ -1,0 +1,96 @@
+.form-group {
+  + .form-group {
+    margin-top: calc(var(--padding) / 2);
+  }
+
+  position: relative;
+
+  &--fancy {
+    $inp-border-width: 2px;
+
+    &::after {
+      content: '';
+      position: absolute;
+      height: $inp-border-width;
+      width: 100%;
+      background: var(--primary-gradient);
+      bottom: 0;
+      z-index: 1;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      height: $inp-border-width;
+      width: 100%;
+      background: var(--clr-secondary);
+      bottom: 0px;
+      z-index: 2;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 310ms ease-in-out;
+    }
+
+    &.focused {
+      &::before {
+        transform: scaleX(1);
+      }
+    }
+
+    label {
+      display: block;
+      position: relative;
+      z-index: 1;
+      margin-bottom: -0.5em;
+      transform: translateY(1.5em);
+      transform-origin: top left;
+      transition: transform 210ms ease-in-out, color 210ms ease-in;
+      cursor: text;
+      color: var(--clr-primary);
+    }
+
+    &.focused {
+      label {
+        transform: translateY(0em) scale(0.8);
+        color: var(--clr-secondary);
+      }
+    }
+
+    input,
+    textarea {
+      display: block;
+      position: relative;
+      width: 100%;
+      font-size: inherit;
+      font-family: inherit;
+      font-weight: 300;
+      border: 0;
+      border-bottom: $inp-border-width solid var(--clr-primary);
+      padding: 0.3em 0;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+}
+
+.button {
+  font-size: inherit;
+  padding: calc(var(--padding) / 2) var(--padding);
+  border: 0px;
+  border-radius: var(--border-radius);
+  background: var(--primary-gradient);
+  color: #fff;
+  transition: box-shadow 120ms ease-in;
+
+  &:focus {
+    background: linear-gradient(
+      -200deg,
+      var(--clr-secondary) 40%,
+      var(--clr-primary) var(--primary-gradient-offset-right)
+    );
+    box-shadow: 0 0 0 3px var(--clr-primary);
+    outline: 0;
+  }
+}
