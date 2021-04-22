@@ -1,5 +1,6 @@
 # Application
 .vscode/settings.json
+.DS_Store
 
 # Logs
 logs
