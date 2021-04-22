@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { env } from '$lib/env'
+  import { pageTitle } from '$lib/page-title'
 </script>
 
 <svelte:head>
-  <title>{env('SITE_NAME', 'Disher')}</title>
+  <title>{pageTitle()}</title>
 </svelte:head>
 
 <div class="container py">

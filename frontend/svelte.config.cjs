@@ -1,6 +1,11 @@
 const sveltePreprocess = require('svelte-preprocess')
 const node = require('@sveltejs/adapter-node')
 const pkg = require('./package.json')
+const dotenv = require('dotenv')
+
+dotenv.config()
+dotenv.config({ path: '.env.local' })
+process.env.DISHER_VERSION = pkg.version
 
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {

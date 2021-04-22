@@ -2,6 +2,7 @@
   import type { Maybe } from 'src/types'
   import Input from '../../components/form/Input.svelte'
   import type { InputComponentEvent } from '../../components/form/Input.svelte'
+  import { pageTitle } from '$lib/page-title'
 
   let email: Maybe<string>
   let password: Maybe<string>
@@ -22,7 +23,7 @@
 </script>
 
 <svelte:head>
-  <title>Login</title>
+  <title>{pageTitle('Login')}</title>
 </svelte:head>
 
 <div class="container my">

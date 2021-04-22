@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { pageTitle } from '$lib/page-title'
+
   import type { Maybe } from 'src/types'
   import Input from '../../components/form/Input.svelte'
 
@@ -16,7 +18,7 @@
 </script>
 
 <svelte:head>
-  <title>Join</title>
+  <title>{pageTitle('Join')}</title>
 </svelte:head>
 
 <div class="container my">
