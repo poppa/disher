@@ -1,3 +1,10 @@
+<script lang="ts" context="module">
+  export interface InputComponentEvent {
+    value: string | number
+    originalTarget: HTMLInputElement
+  }
+</script>
+
 <script lang="ts">
   import type { Maybe } from 'src/types'
   import { createEventDispatcher } from 'svelte'
@@ -10,6 +17,7 @@
   export let placeholder: Maybe<string> = undefined
   export let ariaLabel: string = ''
   export let required = false
+  export let disabled = false
   export let type:
     | 'text'
     | 'password'
@@ -36,7 +44,7 @@
   function handleInput(e: Event) {
     const t = e.target as HTMLInputElement
     value = type.match(/^(number|range)$/) ? Number(t.value) : t.value
-    dispatch('input', value)
+    dispatch('input', { originalTarget: t, value })
   }
 </script>
 
@@ -48,6 +56,7 @@
       {name}
       {id}
       {placeholder}
+      {disabled}
       aria-label={ariaLabel || label}
       {required}
       bind:value
@@ -61,6 +70,7 @@
       {id}
       {placeholder}
       {required}
+      {disabled}
       aria-label={ariaLabel || label}
       on:input={handleInput}
       on:focus={setFocus}

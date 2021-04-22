@@ -78,7 +78,8 @@
 .button {
   font-size: inherit;
   padding: calc(var(--padding) / 2) var(--padding);
-  border: 0px;
+  // border: 1px solid var(--clr-secondary);
+  border: 0;
   border-radius: var(--border-radius);
   background: var(--primary-gradient);
   color: #fff;
@@ -92,5 +93,10 @@
     );
     box-shadow: 0 0 0 3px var(--clr-primary);
     outline: 0;
+  }
+
+  &:disabled {
+    background: var(--clr-gray-600);
+    color: var(--clr-gray-800);
   }
 }
