@@ -1,5 +1,5 @@
 {
-  "name": "@poppanator/disher",
+  "name": "@poppa/disher",
   "scripts": {
     "init": "yarn install --pure-lockfile",
     "dev": "cd frontend && yarn dev",
