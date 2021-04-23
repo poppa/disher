@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Maybe } from 'src/types'
-  import Input from '../../components/form/Input.svelte'
-  import type { InputComponentEvent } from '../../components/form/Input.svelte'
+  import Input from '$comp/form/Input.svelte'
+  import type { InputComponentEvent } from '$comp/form/Input.svelte'
   import { pageTitle } from '$lib/page-title'
 
   let email: Maybe<string>

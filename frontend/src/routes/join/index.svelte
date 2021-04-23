@@ -1,8 +1,7 @@
 <script lang="ts">
   import { pageTitle } from '$lib/page-title'
-
-  import type { Maybe } from 'src/types'
-  import Input from '../../components/form/Input.svelte'
+  import type { Maybe } from '$types/types'
+  import Input from '$comp/form/Input.svelte'
 
   let email: Maybe<string>
   let password: Maybe<string>

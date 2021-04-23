@@ -2,6 +2,7 @@ const sveltePreprocess = require('svelte-preprocess')
 const node = require('@sveltejs/adapter-node')
 const pkg = require('./package.json')
 const dotenv = require('dotenv')
+const { resolve } = require('path')
 
 dotenv.config()
 dotenv.config({ path: '.env.local' })
@@ -27,6 +28,12 @@ module.exports = {
     vite: {
       ssr: {
         noExternal: Object.keys(pkg.dependencies || {}),
+      },
+      resolve: {
+        alias: {
+          $comp: resolve(__dirname, './src/components'),
+          $types: resolve(__dirname, './src/types'),
+        },
       },
     },
   },

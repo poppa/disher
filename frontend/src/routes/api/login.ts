@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit'
-import type { DisherContext } from 'src/types'
-import type { Login } from 'src/types/backend'
+import type { DisherContext } from '$types/index'
+import type { Login } from '$types/backend'
 import { getBackendUrl } from '$lib/backend'
 import fetch from 'node-fetch'
 
