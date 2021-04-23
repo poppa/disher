@@ -1,14 +1,17 @@
-import { parse } from '$lib/cookie'
 import type { Incoming } from '@sveltejs/kit'
 import type { DisherContext } from './types/context'
+import * as cookie from 'cookie'
+import { UserCookieName } from '$lib/constants'
 
 export async function getContext({
   headers,
 }: Incoming): Promise<DisherContext> {
-  const cookies = parse(headers.cookie || '')
+  const cookies = cookie.parse(headers.cookie || '')
 
-  if (cookies.user) {
-    console.log(`Yay got user cookie`)
+  if (cookies[UserCookieName]) {
+    console.log(`Yay got user cookie:`, cookies[UserCookieName])
+  } else {
+    console.log(`No user cookie`)
   }
 
   return {

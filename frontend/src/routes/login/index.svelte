@@ -20,6 +20,28 @@
     password = inp.value
     passwordOk = inp.checkValidity()
   }
+
+  async function handleSubmit(e: Event) {
+    e.preventDefault()
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        body: JSON.stringify({
+          identifier: email,
+          password,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (res.ok) {
+        console.log(`AuthRes:`, await res.json())
+      }
+    } catch (err: unknown) {
+      console.error('Error:', err)
+    }
+  }
 </script>
 
 <svelte:head>
@@ -29,7 +51,7 @@
 <div class="container my">
   <div class="box">
     <h1>Login</h1>
-    <form class="mt-x05">
+    <form class="mt-x05" on:submit={handleSubmit}>
       <Input
         type="email"
         name="email"

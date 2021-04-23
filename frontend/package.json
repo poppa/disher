@@ -30,7 +30,10 @@
   },
   "type": "module",
   "dependencies": {
+    "cookie": "^0.4.1",
     "dotenv": "^8.2.0",
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
     "node-fetch": "^2.6.1"
   }
 }

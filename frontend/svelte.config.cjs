@@ -26,9 +26,6 @@ module.exports = {
     target: '#disher',
 
     vite: {
-      ssr: {
-        noExternal: Object.keys(pkg.dependencies || {}),
-      },
       resolve: {
         alias: {
           $comp: resolve(__dirname, './src/components'),

@@ -1,6 +1,6 @@
 import { browser } from '$app/env'
 
-export function appenv(key: string): string | Record<string, string> {
+export function appenv(key: string): string {
   if (browser) {
     throw new Error(`appenv() can not be called from the browser`)
   }
