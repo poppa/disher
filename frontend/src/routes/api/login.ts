@@ -43,7 +43,14 @@ export const post: RequestHandler<DisherContext> = async ({ body }) => {
         },
       }
 
-      const uc = cookie.serialize(UserCookieName, JSON.stringify(cookieUser))
+      // FIXME: Make path and expiration configurable?
+      // FIXME: Encode the cookie value
+      const uc = cookie.serialize(UserCookieName, JSON.stringify(cookieUser), {
+        path: '/',
+        httpOnly: true,
+      })
+
+      console.log(`UserCookie:`, uc)
 
       return {
         ok: true,

@@ -6,7 +6,7 @@ export interface DisherContext {
 
 export interface DisherUser {
   id: string
-  name: string
+  username: string
   role: string
-  email: string
+  avatar?: string
 }

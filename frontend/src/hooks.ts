@@ -1,34 +1,34 @@
-import type { Incoming } from '@sveltejs/kit'
-import type { DisherContext } from './types/context'
-import * as cookie from 'cookie'
+import type { GetSession, Incoming } from '@sveltejs/kit'
+import type { UserCookie } from '$types/backend'
+import type {
+  DisherSession,
+  Maybe,
+  DisherContext,
+  DisherUser,
+} from '$types/index'
+import cookie from 'cookie'
 import { UserCookieName } from '$lib/constants'
 
 export async function getContext({
   headers,
 }: Incoming): Promise<DisherContext> {
   const cookies = cookie.parse(headers.cookie || '')
+  let user: Maybe<DisherUser> = undefined
 
   if (cookies[UserCookieName]) {
-    console.log(`Yay got user cookie:`, cookies[UserCookieName])
-  } else {
-    console.log(`No user cookie`)
+    const t = JSON.parse(cookies[UserCookieName]) as UserCookie
+    user = t.user
   }
 
   return {
-    user: undefined,
+    user,
   }
 }
 
-export async function getSession({
+export const getSession: GetSession<DisherContext, DisherSession> = async ({
   context,
-}: {
-  context: DisherContext
-}): Promise<unknown> {
-  // console.log(`Get Session:`, context)
-
-  if (context.user) {
-    return {
-      session: true,
-    }
+}): Promise<DisherSession> => {
+  return {
+    user: context.user,
   }
 }
