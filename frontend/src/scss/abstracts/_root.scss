@@ -31,6 +31,9 @@
   --clr-primary-hs: 290 43%;
   --clr-primary-400: hsl(var(--clr-primary-hs) 53%);
   --clr-primary: hsl(var(--clr-primary-hs) 63%);
+  --clr-primary-500: var(--clr-primary);
+  --clr-primary-600: hsl(var(--clr-primary-hs) 68%);
+  --clr-primary-700: hsl(var(--clr-primary-hs) 75%);
 
   --clr-link: var(--clr-primary-400);
 
@@ -47,6 +50,9 @@
   --clr-secondary-hs: 0 100%;
   --clr-secondary-400: hsl(var(--clr-secondary-hs) 66%);
   --clr-secondary: hsl(var(--clr-secondary-hs) 76%);
+  --clr-secondary-500: var(--clr-secondary);
+  --clr-secondary-600: hsl(var(--clr-secondary-hs) 81%);
+  --clr-secondary-700: hsl(var(--clr-secondary-hs) 86%);
 
   // Tertiary color
   --clr-tertiary-hs: 0 3%;

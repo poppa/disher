@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { pageTitle } from '$lib/page-title'
+  import { pageTitle } from '$lib/misc'
   import type { Maybe } from '$types/types'
   import Input from '$comp/form/Input.svelte'
 

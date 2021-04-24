@@ -3,7 +3,7 @@ import type { DisherContext } from '$types/index'
 import type { Login, UserCookie } from '$types/backend'
 import { getBackendUrl } from '$lib/backend'
 import fetch from 'node-fetch'
-import { getUserProfile } from '$lib/gql'
+import { getSimpleUserProfile } from '$lib/gql'
 import cookie from 'cookie'
 import { UserCookieName } from '$lib/constants'
 
@@ -21,7 +21,7 @@ export const post: RequestHandler<DisherContext> = async ({ body }) => {
 
     if (query.ok) {
       const res = (await query.json()) as Login.Result
-      const profile = await getUserProfile(res.user.id)
+      const profile = await getSimpleUserProfile(res.user.id)
 
       if (!profile) {
         return {

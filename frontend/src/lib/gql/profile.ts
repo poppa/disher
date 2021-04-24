@@ -3,6 +3,7 @@ import { gql } from 'graphql-request'
 import { defaultGqlClient } from './client'
 
 // FIXME: Auto-generate GQL types
+// FIXME: This is soo porly named
 interface BackendUser {
   id: string
   email: string
@@ -13,8 +14,8 @@ interface BackendUser {
   }
 }
 
-const query = gql`
-  query UserProfile($id: ID!) {
+const simpleQuery = gql`
+  query SimpleUserProfile($id: ID!) {
     user(id: $id) {
       id
       email
@@ -27,11 +28,54 @@ const query = gql`
   }
 `
 
-export async function getUserProfile(id: string): Promise<Maybe<BackendUser>> {
+const fullQuery = gql`
+  query FullUserProfile($id: ID!) {
+    user(id: $id) {
+      id
+      email
+      username
+      avatar {
+        url
+      }
+      gravatar
+      fullname
+      bio
+      role {
+        id
+        name
+        description
+      }
+    }
+  }
+`
+
+export async function getSimpleUserProfile(
+  id: string
+): Promise<Maybe<BackendUser>> {
   try {
-    const res = await defaultGqlClient.request<{ user: BackendUser }>(query, {
-      id,
-    })
+    const res = await defaultGqlClient.request<{ user: BackendUser }>(
+      simpleQuery,
+      {
+        id,
+      }
+    )
+    return res.user
+  } catch (err: unknown) {
+    console.error('getUserProfile(%O):', err)
+    return undefined
+  }
+}
+
+export async function getFullUserProfile(
+  id: string
+): Promise<Maybe<BackendUser>> {
+  try {
+    const res = await defaultGqlClient.request<{ user: BackendUser }>(
+      fullQuery,
+      {
+        id,
+      }
+    )
     return res.user
   } catch (err: unknown) {
     console.error('getUserProfile(%O):', err)

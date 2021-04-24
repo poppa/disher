@@ -1,2 +1,2 @@
-export * from './page-title'
+export * from './misc'
 export * from './constants'

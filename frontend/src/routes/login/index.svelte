@@ -1,16 +1,37 @@
-<script lang="ts">
+<script context="module" lang="ts">
   import type { Maybe } from '$types/index'
+  import type { Load } from '@sveltejs/kit'
+
+  export const load: Load = ({ page, context }) => {
+    let redir: Maybe<string>
+
+    if (page.query.has('__from')) {
+      redir = page.query.get('__from') as string
+    }
+
+    return {
+      props: {
+        redirectTo: redir,
+      },
+    }
+  }
+</script>
+
+<script lang="ts">
   import type { UserCookie } from '$types/backend'
   import type { InputComponentEvent } from '$comp/form/Input.svelte'
   import Input from '$comp/form/Input.svelte'
-  import { pageTitle } from '$lib/page-title'
+  import { pageTitle } from '$lib/misc'
   import { userStore } from '$stores/user'
   import { goto } from '$app/navigation'
 
+  export let redirectTo = '/'
   let email: Maybe<string>
   let password: Maybe<string>
   let emailOk = false
   let passwordOk = false
+
+  console.log('Redirect to:', redirectTo)
 
   function handleEmail(e: CustomEvent<InputComponentEvent>) {
     const inp = e.detail.originalTarget
@@ -42,7 +63,7 @@
       if (query.ok) {
         const res = (await query.json()) as UserCookie
         userStore.set(res.user)
-        await goto('/')
+        await goto(redirectTo)
       }
     } catch (err: unknown) {
       console.error('Error:', err)
