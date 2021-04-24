@@ -1,5 +1,5 @@
-@use '../abtracts/breakpoints' as *;
-@use '../abtracts/variables' as *;
+@use '../abstracts/breakpoints' as *;
+@use '../abstracts/variables' as *;
 
 .box {
   @include medium {

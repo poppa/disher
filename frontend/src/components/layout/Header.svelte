@@ -1,6 +1,7 @@
 <script lang="ts">
   import { userStore } from '$stores/user'
   import BrandLogo from './BrandLogo.svelte'
+  import StockUser from '../../svg/stock-user.svg'
 </script>
 
 <header>
@@ -13,7 +14,15 @@
     <div class="actions">
       <ul class="h-list h-list--right">
         {#if $userStore}
-          <li>Hello {$userStore.username}</li>
+          <li>
+            <a href="/profile/me" class="user">
+              {$userStore.username}
+              <span
+                class="avatar"
+                style="background-image:url({$userStore.avatar || StockUser})"
+              />
+            </a>
+          </li>
         {:else}
           <li><a href="/join">Join</a></li>
           <li><a href="/login">Login</a></li>
@@ -24,6 +33,8 @@
 </header>
 
 <style lang="scss">
+  @use '../../scss/abstracts/breakpoints' as *;
+
   header {
     background: var(--primary-gradient);
     color: white;
@@ -71,5 +82,26 @@
 
   .actions {
     font-size: var(--fs-400);
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      display: block;
+      background-repeat: no-repeat;
+      background-position: center left;
+      background-size: cover;
+      margin-left: var(--inline-spacing);
+      border-radius: 50%;
+
+      @include medium {
+        width: 36px;
+        height: 36px;
+      }
+    }
   }
 </style>

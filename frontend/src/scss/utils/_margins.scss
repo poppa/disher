@@ -1,4 +1,4 @@
-@use '../abtracts/mixins' as *;
+@use '../abstracts/mixins' as *;
 
 @include make-margin();
 @include make-margin($exp: 1.5);

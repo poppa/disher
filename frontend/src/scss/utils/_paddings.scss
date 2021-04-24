@@ -1,4 +1,4 @@
-@use '../abtracts/mixins' as *;
+@use '../abstracts/mixins' as *;
 
 @include make-margin($property: 'padding', $prefix: p);
 @include make-margin($exp: 1.5, $property: 'padding', $prefix: p);
