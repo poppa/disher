@@ -7,7 +7,7 @@
 <header>
   <div class="container">
     <h1>
-      <a href="/">
+      <a href="/" class="brand--link">
         <BrandLogo payoff="You are served" />
       </a>
     </h1>
@@ -54,18 +54,14 @@
 
   h1 {
     margin: 0;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
+    line-height: 1;
 
     a {
       display: flex;
+      align-items: center;
       color: inherit;
       text-decoration: none;
-
-      :global(.logo) {
-        width: 48px;
-        height: 48px;
-        fill: currentColor;
-      }
     }
 
     :global(.brand) {
@@ -73,10 +69,18 @@
     }
 
     :global(.brand__payoff) {
-      font-size: var(--fs-200);
-      // color: hsl(var(--clr-secondary-hs) 85%);
+      font-size: var(--fs-100);
+      color: hsl(var(--clr-secondary-hs) 85%);
       opacity: 0.6;
-      letter-spacing: 0.035rem;
+      letter-spacing: 0rem;
+    }
+  }
+
+  .brand--link {
+    :global(.logo) {
+      width: 36px;
+      height: 36px;
+      fill: currentColor;
     }
   }
 
@@ -87,21 +91,42 @@
   .user {
     display: flex;
     align-items: center;
+  }
+
+  .avatar {
+    width: 24px;
+    height: 24px;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: cover;
+    margin-left: var(--inline-spacing);
+    border-radius: 50%;
+  }
+
+  @include medium {
+    h1 {
+      font-size: 1.6rem;
+
+      :global(.brand__name) {
+        letter-spacing: 0px;
+      }
+
+      :global(.brand__payoff) {
+        font-size: var(--fs-200);
+      }
+    }
+
+    .brand--link {
+      :global(.logo) {
+        width: 48px;
+        height: 48px;
+      }
+    }
 
     .avatar {
-      width: 24px;
-      height: 24px;
-      display: block;
-      background-repeat: no-repeat;
-      background-position: center left;
-      background-size: cover;
-      margin-left: var(--inline-spacing);
-      border-radius: 50%;
-
-      @include medium {
-        width: 36px;
-        height: 36px;
-      }
+      width: 36px;
+      height: 36px;
     }
   }
 </style>
