@@ -30,6 +30,7 @@ module.exports = {
         alias: {
           $comp: resolve(__dirname, './src/components'),
           $types: resolve(__dirname, './src/types'),
+          $stores: resolve(__dirname, './src/stores'),
         },
       },
     },

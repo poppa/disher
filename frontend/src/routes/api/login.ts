@@ -21,8 +21,6 @@ export const post: RequestHandler<DisherContext> = async ({ body }) => {
 
     if (query.ok) {
       const res = (await query.json()) as Login.Result
-      console.log(`Login worked...now fetch profile`)
-
       const profile = await getUserProfile(res.user.id)
 
       if (!profile) {
@@ -49,8 +47,6 @@ export const post: RequestHandler<DisherContext> = async ({ body }) => {
         path: '/',
         httpOnly: true,
       })
-
-      console.log(`UserCookie:`, uc)
 
       return {
         ok: true,

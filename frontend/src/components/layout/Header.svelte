@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { userStore } from '$stores/user'
   import BrandLogo from './BrandLogo.svelte'
 </script>
 
@@ -11,8 +12,12 @@
     </h1>
     <div class="actions">
       <ul class="h-list h-list--right">
-        <li><a href="/join">Join</a></li>
-        <li><a href="/login">Login</a></li>
+        {#if $userStore}
+          <li>Hello {$userStore.username}</li>
+        {:else}
+          <li><a href="/join">Join</a></li>
+          <li><a href="/login">Login</a></li>
+        {/if}
       </ul>
     </div>
   </div>
