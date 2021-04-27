@@ -24,6 +24,7 @@
   import { pageTitle } from '$lib/misc'
   import { userStore } from '$stores/user'
   import { goto } from '$app/navigation'
+  import { session } from '$app/stores'
 
   export let redirectTo = '/'
   let email: Maybe<string>
@@ -31,7 +32,7 @@
   let emailOk = false
   let passwordOk = false
 
-  console.log('Redirect to:', redirectTo)
+  console.log(`Session:`, $session)
 
   function handleEmail(e: CustomEvent<InputComponentEvent>) {
     const inp = e.detail.originalTarget
@@ -62,6 +63,7 @@
 
       if (query.ok) {
         const res = (await query.json()) as UserCookie
+        session.set({ user: res.user })
         userStore.set(res.user)
         await goto(redirectTo)
       }

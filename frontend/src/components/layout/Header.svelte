@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { userStore } from '$stores/user'
   import BrandLogo from './BrandLogo.svelte'
   import StockUser from '../../svg/stock-user.svg'
+  import { session } from '$app/stores'
+
+  const user = $session.user
 </script>
 
 <header>
@@ -13,13 +15,13 @@
     </h1>
     <div class="actions">
       <ul class="h-list h-list--right">
-        {#if $userStore}
+        {#if user}
           <li>
             <a href="/profile/me" class="user">
-              {$userStore.username}
+              {user.username}
               <span
                 class="avatar"
-                style="background-image:url({$userStore.avatar || StockUser})"
+                style="background-image:url({user.avatar || StockUser})"
               />
             </a>
           </li>

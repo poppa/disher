@@ -29,9 +29,12 @@
 
 <script lang="ts">
   import { resovleUserProfileImage } from '$lib/misc'
+  import { session } from '$app/stores'
 
   export let profile: Record<string, string>
   let profileImageUrl = resovleUserProfileImage(profile)
+
+  console.log(`Session:`, $session)
 </script>
 
 <div class="user-profile">
