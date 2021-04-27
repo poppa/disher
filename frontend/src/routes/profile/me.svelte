@@ -1,40 +1,35 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit'
+  import { requireAuth, sequence } from '$lib/load'
 
-  export const load: Load = async ({ session, fetch }) => {
-    if (!session.user) {
+  export const load: Load = sequence(
+    requireAuth,
+    async ({ session, fetch }) => {
+      const query = await fetch(`/api/profile/${session.user.id}`)
+
+      if (query.ok) {
+        const profile = await query.json()
+
+        return {
+          props: {
+            profile: profile.user,
+          },
+        }
+      }
+
       return {
-        status: 307,
-        redirect: '/login?__from=/profile/me',
+        status: 404,
       }
     }
-
-    const query = await fetch(`/api/profile/${session.user.id}`)
-
-    if (query.ok) {
-      const profile = await query.json()
-
-      return {
-        props: {
-          profile: profile.user,
-        },
-      }
-    }
-
-    return {
-      status: 404,
-    }
-  }
+  )
 </script>
 
 <script lang="ts">
   import { resovleUserProfileImage } from '$lib/misc'
-  import { session } from '$app/stores'
 
   export let profile: Record<string, string>
-  let profileImageUrl = resovleUserProfileImage(profile)
 
-  console.log(`Session:`, $session)
+  let profileImageUrl = resovleUserProfileImage(profile)
 </script>
 
 <div class="user-profile">
@@ -46,9 +41,6 @@
   </header>
 </div>
 
-<!-- <div class="container my">
-  <pre>{JSON.stringify(profile, null, 2)}</pre>
-</div> -->
 <style lang="scss">
   .user-profile {
     display: flex;

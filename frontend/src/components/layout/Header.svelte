@@ -3,7 +3,8 @@
   import StockUser from '../../svg/stock-user.svg'
   import { session } from '$app/stores'
 
-  const user = $session.user
+  let user: Record<string, string>
+  $: user = $session.user
 </script>
 
 <header>

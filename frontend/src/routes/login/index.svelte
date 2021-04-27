@@ -2,7 +2,7 @@
   import type { Maybe } from '$types/index'
   import type { Load } from '@sveltejs/kit'
 
-  export const load: Load = ({ page, context }) => {
+  export const load: Load = ({ page }) => {
     let redir: Maybe<string>
 
     if (page.query.has('__from')) {
@@ -22,7 +22,6 @@
   import type { InputComponentEvent } from '$comp/form/Input.svelte'
   import Input from '$comp/form/Input.svelte'
   import { pageTitle } from '$lib/misc'
-  import { userStore } from '$stores/user'
   import { goto } from '$app/navigation'
   import { session } from '$app/stores'
 
@@ -31,8 +30,6 @@
   let password: Maybe<string>
   let emailOk = false
   let passwordOk = false
-
-  console.log(`Session:`, $session)
 
   function handleEmail(e: CustomEvent<InputComponentEvent>) {
     const inp = e.detail.originalTarget
@@ -64,7 +61,6 @@
       if (query.ok) {
         const res = (await query.json()) as UserCookie
         session.set({ user: res.user })
-        userStore.set(res.user)
         await goto(redirectTo)
       }
     } catch (err: unknown) {
