@@ -35,9 +35,7 @@
 
   async function logout() {
     const r = await fetch(`/api/logout`)
-    console.log(`Fetch logout res:`, r)
     $session.user = undefined
-    console.log(`Post session user`)
     await goto('/')
   }
 </script>
