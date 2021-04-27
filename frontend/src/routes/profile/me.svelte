@@ -34,7 +34,7 @@
   let profileImageUrl = resovleUserProfileImage(profile)
 
   async function logout() {
-    const r = await fetch(`/api/logout`)
+    const r = await fetch(`/api/logout?_=${Date.now()}`)
     $session.user = undefined
     await goto('/')
   }

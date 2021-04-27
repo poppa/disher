@@ -13,11 +13,14 @@ export const get: RequestHandler<DisherContext> = ({ context }) => {
   delete context.user
 
   return {
+    status: 200,
     body: {
       ok: true,
     },
     headers: {
       'Set-Cookie': c,
+      'Cache-Control': 'must-revalidate',
+      'Max-Age': '0',
     },
   }
 }
