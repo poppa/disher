@@ -46,10 +46,10 @@ export const post: RequestHandler<DisherContext> = async ({ body }) => {
       const uc = cookie.serialize(UserCookieName, JSON.stringify(cookieUser), {
         path: '/',
         httpOnly: true,
+        expires: new Date(Date.now() + 3600 * 24 * 60 * 1000),
       })
 
       return {
-        ok: true,
         body: cookieUser,
         headers: {
           'Set-Cookie': uc,

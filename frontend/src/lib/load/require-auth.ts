@@ -3,6 +3,7 @@ import type { LoadInput, LoadOutput } from '@sveltejs/kit/types/page'
 export function requireAuth(
   input: LoadInput
 ): LoadOutput | Promise<LoadOutput> {
+  console.log(`*** requireAuth`)
   if (!input.session.user) {
     return {
       status: 307,

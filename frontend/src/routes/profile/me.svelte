@@ -25,20 +25,45 @@
 </script>
 
 <script lang="ts">
-  import { resovleUserProfileImage } from '$lib/misc'
+  import { isModerator, pageTitle, resovleUserProfileImage } from '$lib/misc'
+  import { session } from '$app/stores'
+  import { goto } from '$app/navigation'
 
   export let profile: Record<string, string>
 
   let profileImageUrl = resovleUserProfileImage(profile)
+
+  async function logout() {
+    const r = await fetch(`/api/logout`)
+    console.log(`Fetch logout res:`, r)
+    $session.user = undefined
+    console.log(`Post session user`)
+    await goto('/')
+  }
 </script>
+
+<svelte:head>
+  <title>{pageTitle(profile.fullname)}</title>
+</svelte:head>
 
 <div class="user-profile">
   <header>
-    <div class="avatar">
-      <img src={profileImageUrl} alt={profile.fullname} />
+    <div class="avatar--wrapper" class:moderator={isModerator(profile)}>
+      <div class="avatar">
+        <img src={profileImageUrl} alt={profile.fullname} />
+      </div>
     </div>
     <h1>{profile.fullname}</h1>
+    <p class="username">{profile.username}</p>
   </header>
+  <section class="my">
+    <!-- FIXME: Markdown text -->
+    <p>{profile.bio}</p>
+
+    <p>
+      <button on:click={logout}>Logout</button>
+    </p>
+  </section>
 </div>
 
 <style lang="scss">
@@ -59,12 +84,19 @@
     }
 
     h1 {
+      position: relative;
       color: var(--clr-secondary-700);
       margin-top: calc(var(--padding) / 2);
     }
   }
 
+  .username {
+    margin: 0;
+    color: var(--clr-primary-700);
+  }
+
   .avatar {
+    position: relative;
     width: 160px;
     height: 160px;
     border-radius: 120px;
@@ -78,5 +110,25 @@
       object-fit: cover;
       object-position: center center;
     }
+
+    &--wrapper {
+      position: relative;
+    }
+  }
+
+  .moderator::before {
+    z-index: 2;
+    content: 'Mod';
+    font-weight: bold;
+    font-size: var(--fs-100);
+    text-transform: uppercase;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(85%, -50%);
+    padding: 0.3em 0.5em;
+    border-radius: var(--border-radius);
+    background: var(--clr-secondary-700);
+    color: var(--clr-tertiary);
   }
 </style>

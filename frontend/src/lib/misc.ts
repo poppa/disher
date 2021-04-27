@@ -20,3 +20,10 @@ export function resovleUserProfileImage(
     return StockUserImage
   }
 }
+
+export function isModerator(user: Record<string, unknown>): boolean {
+  // FIXME: We need a proper user type
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  return user.role.name === 'Moderator'
+}
