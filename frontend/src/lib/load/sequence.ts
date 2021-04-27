@@ -1,16 +1,19 @@
 import type { Maybe } from '$types/types'
 import type { Load, LoadInput, LoadOutput } from '@sveltejs/kit/types/page'
 
+/**
+ * This class acts like a middleware runner for Load functions.
+ */
 class LoadSequence {
-  private middlewares: Load[] = []
+  private queue: Load[] = []
 
   constructor(...fns: Load[]) {
-    this.middlewares = fns
+    this.queue = fns
   }
 
   public load = async (input: LoadInput): Promise<LoadOutput> => {
     // Reverse so we can pop
-    const mw = [...this.middlewares.reverse()]
+    const mw = [...this.queue.reverse()]
 
     const iter = function* (): Generator<LoadOutput | Promise<LoadOutput>> {
       let fn: Maybe<Load>
@@ -34,6 +37,42 @@ class LoadSequence {
   }
 }
 
+/**
+ * Run multiple Load functions in sequence.
+ *
+ * If a function returns `{status: 100}` (e.g. HTTP Continue), the next Load
+ * function in the sequence will run.
+ *
+ * If a function returns anything where `{status: 100}` doesn't exist that
+ * result will in turn be returned to SvelteKit.
+ *
+ * @example
+ * ```ts
+ * // Load function in some route component
+ *
+ * export function load: Load = sequence(
+ *   ({ session }) => {
+ *     if (!session.user) {
+ *       return {
+ *         status: 401,
+ *         error: new Error('Authentication required'),
+ *       }
+ *     }
+ *
+ *     return { status: 100 }
+ *   },
+ *   ({ session }) => {
+ *     console.log('Yay, we are authed')
+ *     return {
+ *       props: { user: session.user }
+ *     }
+ *   }
+ * )
+ * ```
+ *
+ * @param fns Load functions to run in sequence
+ * @returns Load function to pass to SvelteKit
+ */
 export function sequence(...fns: Load[]): Load {
   return new LoadSequence(...fns).load
 }
