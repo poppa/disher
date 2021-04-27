@@ -1,5 +1,7 @@
 # Disher
 
-![](logo-small.png)
+![Disher logo](logo-small.png)
 
-In time this might be a web application for keeping receipes (I'm a foodie)
+**_In time this might be a web application for keeping receipes (I'm a foodie)_**
+
+**Duly note:** This is soooo in alpha-stage and all code is in prototype-mode.
