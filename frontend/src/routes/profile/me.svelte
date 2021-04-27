@@ -32,7 +32,6 @@
 
   export let profile: Record<string, string>
   let profileImageUrl = resovleUserProfileImage(profile)
-  console.log(`IMG:`, profileImageUrl)
 </script>
 
 <div class="user-profile">
@@ -58,10 +57,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: var(--clr-primary);
-      background-image: var(--primary-gradient);
+      /* background-color: var(--clr-tertiary); */
+      background-image: var(--tertiary-gradient);
+      /* border-top: 1px solid var(--clr-primary-400); */
       padding: var(--padding);
-      border-top: 1px solid var(--clr-primary-400);
     }
 
     h1 {

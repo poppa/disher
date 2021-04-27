@@ -18,7 +18,8 @@
 
     font-size: var(--fs-smaller);
     background-color: var(--clr-tertiary);
-    background: linear-gradient(305deg, var(--clr-2) 0%, var(--clr-1) 100%);
+    background: var(--tertiary-gradient);
+    /* linear-gradient(305deg, var(--clr-2) 0%, var(--clr-1) 100%); */
     color: hsl(var(--clr-tertiary-hs) 70%);
   }
 

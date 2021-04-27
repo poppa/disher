@@ -94,14 +94,15 @@
   }
 
   .avatar {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     display: block;
     background-repeat: no-repeat;
     background-position: center left;
     background-size: cover;
     margin-left: var(--inline-spacing);
     border-radius: 50%;
+    border: 1px solid var(--clr-primary-400);
   }
 
   @include medium {
@@ -125,8 +126,8 @@
     }
 
     .avatar {
-      width: 36px;
-      height: 36px;
+      width: 48px;
+      height: 48px;
     }
   }
 </style>
