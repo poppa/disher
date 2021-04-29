@@ -1,4 +1,4 @@
-import type { Maybe } from '$types/types'
+import { isPromise } from '$lib/promise'
 import type { Load, LoadInput, LoadOutput } from '@sveltejs/kit/types/page'
 
 /**
@@ -12,20 +12,14 @@ class LoadSequence {
   }
 
   public load = async (input: LoadInput): Promise<LoadOutput> => {
-    // Reverse so we can pop
-    const mw = [...this.queue.reverse()]
+    const mw = [...this.queue]
 
-    const iter = function* (): Generator<LoadOutput | Promise<LoadOutput>> {
-      let fn: Maybe<Load>
-      do {
-        fn = mw.pop()
-        if (fn) {
-          yield fn(input)
-        }
-      } while (fn)
-    }
+    for (const fn of mw) {
+      let res = fn(input)
+      if (isPromise(res)) {
+        res = await res
+      }
 
-    for await (const res of iter()) {
       if (res.status !== 100) {
         return res
       }
