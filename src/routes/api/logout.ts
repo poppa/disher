@@ -3,14 +3,14 @@ import cookie from 'cookie'
 import { UserCookieName } from '$lib/constants'
 import type { DisherContext } from '$types/context'
 
-export const get: RequestHandler<DisherContext> = ({ context }) => {
+export const get: RequestHandler<DisherContext> = ({ locals }) => {
   const c = cookie.serialize(UserCookieName, '', {
     path: '/',
     httpOnly: true,
     maxAge: -1,
   })
 
-  delete context.user
+  delete locals.user
 
   return {
     status: 200,

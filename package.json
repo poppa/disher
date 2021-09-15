@@ -1,17 +1,44 @@
 {
-  "name": "@poppa/disher",
+  "name": "@poppa/disher-frontend",
   "scripts": {
     "init": "yarn install --pure-lockfile",
-    "dev": "cd frontend && yarn dev",
-    "build": "cd frontend && yarn build"
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "start": "svelte-kit start",
+    "lint": "prettier --check . && eslint --ignore-path .gitignore .",
+    "format": "prettier --write ."
   },
   "private": true,
   "version": "0.0.1",
   "repository": "https://github.com/poppa/disher.git",
   "author": "Pontus Östlund <poppanator@gmail.com>",
   "license": "MIT",
-  "devDependencies": {},
-  "workspaces": [
-    "frontend"
-  ]
+  "devDependencies": {
+    "@sveltejs/adapter-node": "next",
+    "@sveltejs/kit": "next",
+    "@types/cookie": "^0.4.0",
+    "@types/node-fetch": "^2.5.10",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-svelte3": "^3.1.0",
+    "prettier": "~2.2.1",
+    "prettier-plugin-svelte": "^2.2.0",
+    "sass": "^1.32.8",
+    "svelte": "^3.34.0",
+    "svelte-check": "^2.0.0",
+    "svelte-preprocess": "^4.0.0",
+    "tslib": "^2.0.0",
+    "typescript": "^4.0.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@poppanator/sveltekit-svg": "^0.1.4",
+    "cookie": "^0.4.1",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
+    "node-fetch": "^2.6.1"
+  }
 }

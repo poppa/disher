@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import type { Maybe } from '$types/index'
+  import type { Maybe } from '../../types'
   import type { Load } from '@sveltejs/kit'
 
   export const load: Load = ({ page }) => {
@@ -18,10 +18,10 @@
 </script>
 
 <script lang="ts">
-  import type { UserCookie } from '$types/backend'
-  import type { InputComponentEvent } from '$comp/form/Input.svelte'
-  import Input from '$comp/form/Input.svelte'
-  import { pageTitle } from '$lib/misc'
+  import type { UserCookie } from '../../types/backend'
+  import type { InputComponentEvent } from '../../components/form/Input.svelte'
+  import Input from '../../components/form/Input.svelte'
+  import { pageTitle } from '../../lib/misc'
   import { goto } from '$app/navigation'
   import { session } from '$app/stores'
 

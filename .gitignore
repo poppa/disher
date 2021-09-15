@@ -1,6 +1,9 @@
 # Application
 .vscode/settings.json
 .DS_Store
+.svelte
+.svelte-kit
+build/
 
 # Logs
 logs
@@ -28,7 +31,6 @@ coverage
 
 # nyc test coverage
 .nyc_output
-
 
 # Dependency directories
 node_modules/
