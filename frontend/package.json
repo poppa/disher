@@ -30,6 +30,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@poppanator/sveltekit-svg": "^0.1.4",
     "cookie": "^0.4.1",
     "dotenv": "^8.2.0",
     "graphql": "^15.5.0",
